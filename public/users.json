@@ -1,0 +1,46 @@
+[
+    {
+        "id": "user1",
+        "name": "Alejandro",
+        "lastName": "Sanchez",
+        "age": 27,
+        "email": "aleedario1995@gmail.com",
+        "password": "Marica1",
+        "code": 1,
+        "verified": true,
+        "logged": true
+    },
+    {
+        "id": "user2",
+        "name": "Melissa",
+        "lastName": "Uribe",
+        "age": 27,
+        "email": "lissauribe22@gmail.com",
+        "password": "Marica2",
+        "code": 2,
+        "verified": true,
+        "logged": true
+    },
+    {
+        "id": "user3",
+        "name": "Fernando",
+        "lastName": "Uribe",
+        "age": 60,
+        "email": "uribevidal@yahoo.com",
+        "password": "Marica3",
+        "code": 3,
+        "verified": true,
+        "logged": true
+    },
+    {
+        "id": "user4",
+        "name": "Alberto",
+        "lastName": "Orellana",
+        "age": 75,
+        "email": "albertoorellana47@gmail.com",
+        "password": "Marica4",
+        "code": 4,
+        "verified": true,
+        "logged": true
+    }
+]
