@@ -26,7 +26,7 @@
        "description":"Enjoy one of the best views of the most recognizable skyline in the world at the exclusive PHD this New Years Eve. The times square hotspot that is home to many Fashion Week parties will blow you",
        "photo":"https://nycnewyears.wpenginepowered.com/wp-content/uploads/2016/12/PHD-Terrace-Dream-Midtown.jpg",
        "price":50,
-       "date":"2022-12-31 (usar constructor Date)",
+       "date":"2022-12-31",
        "userId":"user3"
     },
     {
@@ -64,7 +64,7 @@
        "hotelId":"place7",
        "name":"Backstreet Boys",
        "description":"We're so excited to be back on the road!.",
-       "photo":"(URL de foto)",
+       "photo":"https://whathappensonthebackstreet.files.wordpress.com/2022/07/fwnyoiuxwaafenk-1.jpg?w=1200",
        "price":140,
        "date":"2022-11-06",
        "userId":"user3"
