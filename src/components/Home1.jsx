@@ -6,7 +6,6 @@ export default function Home1() {
   return (
     <div className='w-100 vh-100'>
       <Header />
-      <CallToAction />
       <div className="sub-main">
         <div className="flex justify-center align-center">
           <div className="flex column align-center gap-1-5">
