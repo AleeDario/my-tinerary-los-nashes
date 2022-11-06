@@ -6,7 +6,7 @@
 }
 
 
-body{
+body {
     background-color: #DFFFE2;
 }
 
@@ -964,84 +964,84 @@ body{
     margin: 7rem;
 }
 
-.m-t-1{
+.m-t-1 {
     margin-top: 1rem;
 }
 
-.m-t-1-5{
+.m-t-1-5 {
     margin-top: 1.5rem;
 }
 
-.m-t-2{
+.m-t-2 {
     margin-top: 2rem;
 }
 
-.m-t-2-5{
+.m-t-2-5 {
     margin-top: 2.5rem;
 }
 
-.m-t-3{
+.m-t-3 {
     margin-top: 3rem;
 }
 
-.m-t-3-5{
+.m-t-3-5 {
     margin-top: 3.5rem;
 }
 
-.m-t-4{
+.m-t-4 {
     margin-top: 4rem;
 }
 
-.m-t-4-5{
+.m-t-4-5 {
     margin-top: 4.5rem;
 }
 
-.m-t-5{
+.m-t-5 {
     margin-top: 5rem;
 }
 
 
-.m-t-5-5{
+.m-t-5-5 {
     margin-top: 5.5rem;
 }
 
-.m-t-6{
+.m-t-6 {
     margin-top: 6rem;
 }
 
-.m-t-6-5{
+.m-t-6-5 {
     margin-top: 6.5rem;
 }
 
-.m-t-7{
+.m-t-7 {
     margin-top: 7rem;
 }
 
-.m-b-1{
+.m-b-1 {
     margin-bottom: 1rem;
 }
 
-.m-b-1-5{
+.m-b-1-5 {
     margin-bottom: 1.5rem;
 }
 
-.m-b-2{
+.m-b-2 {
     margin-bottom: 2rem;
 }
 
-.m-b-2-5{
+.m-b-2-5 {
     margin-bottom: 2.5rem;
 }
 
-.m-b-3{
+.m-b-3 {
     margin-bottom: 3rem;
 }
 
-.m-b-3-5{
+.m-b-3-5 {
     margin-bottom: 3.5rem;
 }
 
-.m-b-4{
+.m-b-4 {
     margin-bottom: 4rem;
 }
 
@@ -1108,67 +1108,67 @@ body{
     padding: 7rem;
 }
 
-.p-r-0-5{
+.p-r-0-5 {
     padding-right: 0.5rem;
 }
 
-.p-r-1{
+.p-r-1 {
     padding-right: 1rem;
 }
 
-.p-r-1-5{
+.p-r-1-5 {
     padding-right: 1.5rem;
 }
 
-.p-r-2{
+.p-r-2 {
     padding-right: 2rem;
 }
 
-.p-r-2-5{
+.p-r-2-5 {
     padding-right: 2.5rem;
 }
 
-.p-r-3{
+.p-r-3 {
     padding-right: 3rem;
 }
 
-.p-r-3-5{
+.p-r-3-5 {
     padding-right: 3.5rem;
 }
 
-.p-r-4{
+.p-r-4 {
     padding-right: 4rem;
 }
 
-.p-l-0-5{
+.p-l-0-5 {
     padding-left: 0.5rem;
 }
 
-.p-l-1{
+.p-l-1 {
     padding-left: 1rem;
 }
 
-.p-l-1-5{
+.p-l-1-5 {
     padding-left: 1.5rem;
 }
 
-.p-l-2{
+.p-l-2 {
     padding-left: 2rem;
 }
 
-.p-l-2-5{
+.p-l-2-5 {
     padding-left: 2.5rem;
 }
 
-.p-l-3{
+.p-l-3 {
     padding-left: 3rem;
 }
 
-.p-l-3-5{
+.p-l-3-5 {
     padding-left: 3.5rem;
 }
 
-.p-l-4{
+.p-l-4 {
     padding-left: 4rem;
 }
 
@@ -1259,7 +1259,7 @@ video {
     text-align: center;
     color: white;
     margin-bottom: 1em;
-    text-shadow: -3px 3px 2px rgba(0,0,0,1);
+    text-shadow: -3px 3px 2px rgba(0, 0, 0, 1);
 }
 
 .caorusel img:hover {
@@ -1467,6 +1467,7 @@ video {
 .img-w-1-5 {
     width: 1.5em;
 }
+
 .img-w-2 {
     width: 2em;
 }
@@ -1507,23 +1508,23 @@ video {
     text-decoration: none;
 }
 
-.scrollToTop{
+.scrollToTop {
     position: fixed;
     bottom: 18px;
     right: 5px;
 }
 
-.scrollToTop:hover{
+.scrollToTop:hover {
     cursor: pointer;
     transform: translateY(-1em) scale(1.1);
 }
 
-.nt{
+.nt {
     width: 100%;
     height: 100vh;
 }
 
-.notfound{
+.notfound {
     width: 100%;
 }
 
@@ -1539,14 +1540,14 @@ video {
     box-shadow: 0 0.4rem #dfd9d9;
     cursor: pointer;
     width: 100%;
-  }
-  
-  .input-wrapper input:focus {
+}
+
+.input-wrapper input:focus {
     outline-color: lightcoral;
-  }
-  
-  /* Form submit button sign up*/
-  .cssbuttons-io-button {
+}
+
+/* Form submit button sign up*/
+.cssbuttons-io-button {
     background: #EE6C4D;
     color: white;
     font-family: inherit;
@@ -1565,9 +1566,9 @@ video {
     width: 10em;
     display: flex;
     justify-content: center;
-  }
-  
-  .cssbuttons-io-button .icon {
+}
+
+.cssbuttons-io-button .icon {
     background: white;
     margin-left: 1em;
     position: absolute;
@@ -1580,37 +1581,37 @@ video {
     box-shadow: 0.1em 0.1em 0.6em 0.2em #FF8F74;
     right: 0.3em;
     transition: all 0.3s;
-  }
-  
-  .cssbuttons-io-button:hover .icon {
+}
+
+.cssbuttons-io-button:hover .icon {
     width: calc(100% - 0.6em);
-  }
-  
-  .cssbuttons-io-button .icon svg {
+}
+
+.cssbuttons-io-button .icon svg {
     width: 1.1em;
     transition: transform 0.3s;
     color: #FF8F74;
-  }
-  
-  .cssbuttons-io-button:hover .icon svg {
+}
+
+.cssbuttons-io-button:hover .icon svg {
     transform: translateX(0.1em);
-  }
-  
-  .cssbuttons-io-button:active .icon {
+}
+
+.cssbuttons-io-button:active .icon {
     transform: scale(0.95);
-  }
-  
-  .signup-input {
+}
+
+.signup-input {
     width: 80%;
-  }
-  
-  .remember-password a {
+}
+
+.remember-password a {
     color: #3D5A80;
     text-decoration: none;
-  }
-  
-  /* card signup*/
-  .card {
+}
+
+/* card signup*/
+.card {
     width: 100%;
     height: auto;
     margin: 1em;
@@ -1620,49 +1621,35 @@ video {
     border-radius: 30px;
     background: #e0e0e0;
     box-shadow: 15px 15px 30px #bebebe,
-      -15px -15px 30px #ffffff;
-  }
-  
-  .justify-evenly {
-    justify-content: space-evenly;
-  }
-  
-  /* card signin */
-  .card2 {
-    width: 40%;
-    height: auto;
-    padding: 2em 0 1em 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    border-radius: 30px;
-    background: #e0e0e0;
-    box-shadow: 15px 15px 30px #bebebe,
-      -15px -15px 30px #ffffff;
-  }
-  
-  
-  /* Google button */
+        -15px -15px 30px #ffffff;
+}
 
-  .bg-google{
+.justify-evenly {
+    justify-content: space-evenly;
+}
+
+
+/* Google button */
+
+.bg-google {
     background-color: #4285f4;
     height: 2.5em
-  }
+}
 
-  .img-google{
+.img-google {
     border-radius: 0.5em 0 0 0.5em;
     padding: .4em;
     width: 3em;
-  }
-  
-  .google-btn {
+}
+
+.google-btn {
     height: 42px;
     background-color: #4285f4;
     border-radius: 2px;
     box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .25);
-  }
-  
-  .button-border {
+}
+
+.button-border {
     border-top: white solid .119em;
     padding: 1em;
     width: 70%;
@@ -1670,10 +1657,10 @@ video {
     flex-direction: column;
     align-items: center;
     gap: 1em;
-  }
-  
-  
-  .google-icon-wrapper {
+}
+
+
+.google-icon-wrapper {
     position: absolute;
     margin-top: 1px;
     margin-left: 1px;
@@ -1681,64 +1668,55 @@ video {
     height: 40px;
     border-radius: 2px;
     background-color: white;
-  }
-  
-  .google-icon {
+}
+
+.google-icon {
     position: absolute;
     margin-top: 11px;
     margin-left: 11px;
     width: 18px;
     height: 18px;
-  }
-  
-  .btn-text {
+}
+
+.btn-text {
     float: right;
     margin: 11px 11px 0 0;
     color: white;
     font-size: 14px;
     letter-spacing: 0.2px;
     font-family: "Roboto";
-  }
-  
-  &:hover {
-    box-shadow: 0 0 6px #4285f4;
-  }
-  
-  &:active {
-    background: #1669F2;
-  }
-  
-  
-  @import url(https://fonts.googleapis.com/css?family=Roboto:500);
-  
-  
-  .text-palette1 {
+}
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:500);
+
+
+.text-palette1 {
     color: #293241;
-  }
-  
-  .text-palette2 {
+}
+
+.text-palette2 {
     color: #EE6C4D;
-  }
-  
-  .text-palette3 {
+}
+
+.text-palette3 {
     color: #DFFFE2;
-  }
-  
-  .text-palette4 {
+}
+
+.text-palette4 {
     color: #8CC3D8;
-  }
-  
-  .text-palette5 {
+}
+
+.text-palette5 {
     color: #3D5A80;
-  }
-  
-  .text-palette6 {
+}
+
+.text-palette6 {
     color: #1c232c;
-  }
-  
-  /* Sign up en sign in button */
-  
-  button {
+}
+
+/* Sign up en sign in button */
+
+button {
     font-family: inherit;
     font-size: 1em;
     background: #3D5A80;
@@ -1751,52 +1729,58 @@ video {
     border-radius: 16px;
     overflow: hidden;
     transition: all 0.2s;
-  }
-  
-  button span {
+}
+
+button span {
     display: block;
     margin-left: 0.3em;
     transition: all 0.3s ease-in-out;
-  }
-  
-  button svg {
+}
+
+button svg {
     display: block;
     transform-origin: center center;
     transition: transform 0.3s ease-in-out;
-  }
-  
-  button:hover .svg-wrapper {
+}
+
+button:hover .svg-wrapper {
     animation: fly-1 0.6s ease-in-out infinite alternate;
-  }
-  
-  button:hover svg {
+}
+
+button:hover svg {
     transform: translateX(1.2em) rotate(45deg) scale(1.1);
-  }
-  
-  button:hover span {
-    transform: translateX(5em);
-  }
-  
-  button:active {
+}
+
+button:hover span {
+    transform: translateX(12em);
+}
+
+button:active {
     transform: scale(0.95);
-  }
-  
-  @keyframes fly-1 {
+}
+
+@keyframes fly-1 {
     from {
-      transform: translateY(0.1em);
+        transform: translateY(0.1em);
     }
-  
+
     to {
-      transform: translateY(-0.1em);
+        transform: translateY(-0.1em);
     }
-  }
-  
-  .newaccount-button {
-    width: 12em;
-    height: 42px;
-  }
-  
-  .main-container-sign{
+}
+
+@keyframes fly-2 {
+    from {
+        transform: translateY(0.1em);
+    }
+
+    to {
+        transform: translateY(-0.1em);
+        transform: translateX(5em);
+    }
+}
+
+.main-container-sign, .main-container-signin{
     margin-top: 12em;
 }
 
@@ -1804,7 +1788,7 @@ video {
 
 @media screen and (max-width: 990px) {
 
-    .main-container-sign{
+    .main-container-sign, .main-container-signin {
         margin-top: 20em;
     }
 
@@ -1842,19 +1826,19 @@ video {
 
 @media screen and (max-width: 477px) {
 
-    .svg-right{
+    .svg-right {
         transform: rotate(90deg);
     }
 
-    .svg-right:hover{
+    .svg-right:hover {
         transform: translateY(-2em) rotate(90deg) scale(1.2);
     }
 
-    .svg-left{
+    .svg-left {
         transform: rotate(90deg);
     }
 
-    .svg-left:hover{
+    .svg-left:hover {
         transform: translateY(2em) rotate(90deg) scale(1.2);
     }
 

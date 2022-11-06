@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import ButtonNav from './ButtonNav'
 import CallToAction from './CallToAction'
+import { Link as Navlink} from 'react-router-dom'
 
 export default function Navbar() {
 
@@ -21,7 +22,9 @@ export default function Navbar() {
     return (
         <nav className="flex justify-between p-1 nav-container">
             <div>
-                <img className="img-fluid" width="300px" src="./img/logo-header.png" alt="" />
+                <Navlink to='/'>
+                    <img className="img-fluid" width="300px" src="./img/logo-header.png" alt="" />
+                </Navlink>
             </div>
             <div className="flex gap-2 align-center btn-container">
                 <div className='flex column'>
