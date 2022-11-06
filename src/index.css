@@ -5,6 +5,11 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 
+
+body{
+    background-color: #DFFFE2;
+}
+
 /* Display flex */
 
 .flex {
@@ -53,19 +58,19 @@
 }
 
 .align-start {
-    align-items: flex-start;
+    align-items: start;
 }
 
 .justify-start {
-    justify-content: flex-start;
+    justify-content: start;
 }
 
 .align-end {
-    align-items: flex-end;
+    align-items: end;
 }
 
 .justify-end {
-    justify-content: flex-end;
+    justify-content: end;
 }
 
 .gap-0-5 {
@@ -1019,6 +1024,70 @@
     padding: 7rem;
 }
 
+.p-r-0-5{
+    padding-right: 0.5rem;
+}
+
+.p-r-1{
+    padding-right: 1rem;
+}
+
+.p-r-1-5{
+    padding-right: 1.5rem;
+}
+
+.p-r-2{
+    padding-right: 2rem;
+}
+
+.p-r-2-5{
+    padding-right: 2.5rem;
+}
+
+.p-r-3{
+    padding-right: 3rem;
+}
+
+.p-r-3-5{
+    padding-right: 3.5rem;
+}
+
+.p-r-4{
+    padding-right: 4rem;
+}
+
+.p-l-0-5{
+    padding-left: 0.5rem;
+}
+
+.p-l-1{
+    padding-left: 1rem;
+}
+
+.p-l-1-5{
+    padding-left: 1.5rem;
+}
+
+.p-l-2{
+    padding-left: 2rem;
+}
+
+.p-l-2-5{
+    padding-left: 2.5rem;
+}
+
+.p-l-3{
+    padding-left: 3rem;
+}
+
+.p-l-3-5{
+    padding-left: 3.5rem;
+}
+
+.p-l-4{
+    padding-left: 4rem;
+}
+
 /* Border Radius */
 
 .border-radius-0-5 {
@@ -1108,13 +1177,14 @@ video {
 }
 
 .sub-main {
-    position: fixed;
+    position: absolute;
     top: 71%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
     color: white;
     margin-bottom: 1em;
+    text-shadow: -3px 3px 2px rgba(0,0,0,1);
 }
 
 .caorusel img:hover {
@@ -1322,9 +1392,55 @@ video {
 .img-w-1-5 {
     width: 1.5em;
 }
+.img-w-2 {
+    width: 2em;
+}
+
+.img-w-2-5 {
+    width: 2.5em;
+}
+
+.img-w-3 {
+    width: 3em;
+}
+
+.img-w-3-5 {
+    width: 3.5em;
+}
+
+.img-w-4 {
+    width: 4em;
+}
+
+.img-w-4-5 {
+    width: 4.5em;
+}
+
+.img-w-5 {
+    width: 5em;
+}
+
+.img-w-5-5 {
+    width: 5.5em;
+}
+
+.img-w-6 {
+    width: 6em;
+}
 
 .no-decoration {
     text-decoration: none;
+}
+
+.scrollToTop{
+    position: fixed;
+    bottom: 18px;
+    right: 5px;
+}
+
+.scrollToTop:hover{
+    cursor: pointer;
+    transform: translateY(-1em) scale(1.1);
 }
 
 @media screen and (max-width: 990px) {
@@ -1359,4 +1475,24 @@ video {
     .second-footer {
         gap: 1em
     }
+}
+
+@media screen and (max-width: 477px) {
+
+    .svg-right{
+        transform: rotate(90deg);
+    }
+
+    .svg-right:hover{
+        transform: translateY(-2em) rotate(90deg) scale(1.2);
+    }
+
+    .svg-left{
+        transform: rotate(90deg);
+    }
+
+    .svg-left:hover{
+        transform: translateY(2em) rotate(90deg) scale(1.2);
+    }
+
 }
