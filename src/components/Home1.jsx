@@ -1,13 +1,11 @@
 import React from 'react'
 import Header from './Header'
-import AutoToTop from './AutoToTop'
 import CallToAction from './CallToAction'
 
 export default function Home1() {
   return (
     <div className='w-100 vh-100'>
       <Header />
-      <AutoToTop />
       <CallToAction />
       <div className="sub-main">
         <div className="flex justify-center align-center">
