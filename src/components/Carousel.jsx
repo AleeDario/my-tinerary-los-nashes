@@ -78,7 +78,7 @@ export default function Carousel() {
                 {
                     photosCarouselAll[numeroCambiante].map((photo, index) => {
                         return (
-                            <img className="border-radius-50" width="250px" height="250px" src={photo} alt={index} />
+                            <img key={index} className="border-radius-50" width="250px" height="250px" src={photo} alt={index} />
                         )
                     })
                 }
