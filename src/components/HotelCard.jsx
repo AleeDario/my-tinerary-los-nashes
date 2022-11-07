@@ -19,7 +19,7 @@ export default function HotelCard(props) {
                 <h3>{hotel.name}</h3>
                 <p>Capacity: {hotel.capacity}</p>
             </div>
-            <NavLink to={`/details/${hotel.id}`} style={{ textDecoration: 'none' }}>
+            <NavLink to={`/detailsH/${hotel.id}`} style={{ textDecoration: 'none' }}>
                 <button className="view-more">View more</button>
             </NavLink>
 
