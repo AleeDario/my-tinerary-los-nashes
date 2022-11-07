@@ -71,9 +71,14 @@ export default function Cities() {
             </form>
 
             <div className="cards-container container-fluid w-90 flex wrap gap-2 justify-center align-center">
-                {ciudadesFiltradas.map((city, index) => {
-                    return <CityCard city={city} />
-                })}
+
+                {ciudadesFiltradas.length > 0 ? (
+                    ciudadesFiltradas.map((city, index) => {
+                        return <CityCard city={city} />
+                    }))
+                    : (
+                        <img className='img-fluid' width='100%' src="./img/notsearch.png" alt="Not Found Search" />
+                    )}
             </div>
         </div>
     )
