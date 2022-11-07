@@ -22,9 +22,7 @@ export default function NewHotel() {
                             {
                                 id: id.current.value,
                                 namee: namee.current.value,
-                                photo1: photo1.current.value,
-                                photo2: photo2.current.value,
-                                photo3: photo3.current.value,
+                                photo: [photo1.current.value, photo2.current.value, photo3.current.value],
                                 capacity: capacity.current.value,
                                 cityId: cityId.current.value
                             }
@@ -55,7 +53,7 @@ export default function NewHotel() {
                             <InputForm classN="signup-input" type="text" place="Capacity" id="capacity" refId={capacity} />
                             <InputForm classN="signup-input" type="text" place="cityId" id="cityId" refId={cityId} />
                         </div>
-                        <BotonEnviarForm fx={enviarFormulario} texto='Create City' />
+                        <BotonEnviarForm fx={enviarFormulario} texto='Create Hotel' />
                     </div>
                 </form>
             </div>
