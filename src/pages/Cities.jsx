@@ -66,7 +66,7 @@ export default function Cities() {
                 </label>
 
                 {checkCiudades.map((continente, index) => {
-                    return <Checkbox continent={continente} valor={continente} refId={continentes[index]} fx={filterCheckCards} />
+                    return <Checkbox continent={continente} valor={continente} refId={continentes[index]} fx={filterCheckCards} key={index} />
                 })}
             </form>
 
@@ -74,7 +74,7 @@ export default function Cities() {
 
                 {ciudadesFiltradas.length > 0 ? (
                     ciudadesFiltradas.map((city, index) => {
-                        return <CityCard city={city} />
+                        return <CityCard city={city} key={index} />
                     }))
                     : (
                         <img className='img-fluid' width='100%' src="./img/notsearch.png" alt="Not Found Search" />
