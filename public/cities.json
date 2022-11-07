@@ -74,7 +74,7 @@
     {
         "id": "city10",
         "name": "Cape Town",
-        "continent": "Sudáfrica",
+        "continent": "Sudafrica",
         "photo": "https://i.ibb.co/TtWB4bH/cape-town.webp",
         "population": 7481156,
         "userId": "admin1"
