@@ -2,38 +2,36 @@ import React from 'react'
 import { useRef } from 'react'
 import BotonEnviarForm from '../components/BotonEnviarForm'
 import InputForm from '../components/InputForm'
+import axios from 'axios'
 
 export default function NewCity() {
 
     const form = useRef()
-    const id = useRef()
-    const namee = useRef()
+    const name = useRef()
     const continent = useRef()
     const photo = useRef()
     const population = useRef()
 
-    let newCity = []
 
     const enviarFormulario = () => {
+        let newCity;
 
-        if (id.current.value !== '' && namee.current.value !== '' && continent.current.value !== '' && photo.current.value !== '' && population.current.value !== '') {
-                        newCity.push(
-                            {
-                                id: id.current.value,
-                                namee: namee.current.value,
-                                continent: continent.current.value,
-                                photo: photo.current.value,
-                                population: population.current.value
-                            }
-                        )
-                        form.current.reset()
-                        alert('Ciudad creada con éxito')
-                    
+        if (name.current.value !== '' && continent.current.value !== '' && photo.current.value !== '' && population.current.value !== '') {
+            newCity = {
+                name: name.current.value,
+                continent: continent.current.value,
+                photo: photo.current.value,
+                population: population.current.value,
+                userId: '636d82c86529ebe93bbef91f',
+            }
+
+            axios.post(`http://localhost:8000/api/cities`, newCity)
+            form.current.reset()
+            alert('Ciudad creada con éxito')
+
         } else {
             alert('Todos los campos son obligatorios')
         }
-
-        localStorage.setItem('newCity', JSON.stringify(newCity))
     }
 
     return (
@@ -44,11 +42,10 @@ export default function NewCity() {
                     <div className="card flex column align-center justify-center container-fluid">
                         <img className="img-w-20 flex align-center img-fluid" src="../img/signup-img.png" alt="drawing" />
                         <div className="input-wrapper flex column gap-1">
-                            <InputForm classN="signup-input" type="text" place="Id" id="Id" refId={id} />
-                            <InputForm classN="signup-input" type="text" place="Name" id="name" refId={namee} />
+                            <InputForm classN="signup-input" type="text" place="Name" id="name" refId={name} />
                             <InputForm classN="signup-input" type="text" place="Continent" id="continent" refId={continent} />
-                            <InputForm classN="signup-input" type="text" place='Photo' id="Photo" refId={photo} />
-                            <InputForm classN="signup-input" type="text" place="Population" id="tel" refId={population} />
+                            <InputForm classN="signup-input" type="text" place='Photo' id="photo" refId={photo} />
+                            <InputForm classN="signup-input" type="text" place="Population" id="population" refId={population} />
                         </div>
 
                         <BotonEnviarForm fx={enviarFormulario} texto='Create City' />
