@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useRef, useState, useEffect } from 'react'
 import Checkbox from '../components/Checkbox'
 import CityCard from '../components/CityCard'
@@ -10,13 +11,14 @@ export default function Cities() {
     const searchId = useRef()
 
     useEffect(() => {
-        fetch('../cities.json')
-            .then(response => response.json())
-            .then(response => setCiudades(response))
+        axios.get(`http://localhost:8000/api/cities/`)
+            .then(res => setCiudades(res.data.data))
+            .catch(err => console.log(err))
 
-        fetch('../cities.json')
-            .then(response => response.json())
-            .then(response => setCiudadesFiltradas(response))
+        axios.get(`http://localhost:8000/api/cities/`)
+            .then(res => setCiudadesFiltradas(res.data.data))
+            .catch(err => console.log(err))
+
     }, [])
 
     let checkCiudades = [...new Set(ciudades.map((ciudad) => ciudad.continent))]
@@ -24,41 +26,23 @@ export default function Cities() {
     function filterCheckCards(event) {
 
         let checkFiltered = filterCheck(event)
-        localStorage.setItem('checkboxFiltrados', JSON.stringify(checkFiltered))
-        let searchFiltered = filterSearch(checkFiltered)
-        localStorage.setItem('searchFiltrados', JSON.stringify(searchFiltered))
-        setCiudadesFiltradas(searchFiltered)
-        console.log(searchFiltered)
-        localStorage.setItem('ciudadesFiltradas', JSON.stringify(searchFiltered))
+        let urlChecks = checkFiltered.map((check) => `continent=${check}`).join('&')
+
+        axios.get(`http://localhost:8000/api/cities?${urlChecks}&name=${searchId.current.value}`)
+            .then(res => setCiudadesFiltradas(res.data.data))
     }
 
     function filterCheck(event) {
-        let checkFiltered = checks
+        let checkFiltered = []
         if(event.target.checked) {
             checkFiltered =  [...checks, event.target.name]
         } else {
             checkFiltered = checks.filter((check) => check !== event.target.name)
-            console.log(checks)
         }
-
-        let ciudadesFiltradas = ciudades.filter((ciudad) => checkFiltered.includes(ciudad.continent))
 
         setChecks(checkFiltered)
 
-        if (checkFiltered.length === 0) {
-            return ciudades
-        }
-
-        return ciudadesFiltradas
-    }
-
-    function filterSearch(array) {
-        if (searchId.current.value !== '') {
-            let ciudadesFiltradas = array.filter((ciudad) => ciudad.name.toLowerCase().includes(searchId.current.value.toLowerCase()))
-            return ciudadesFiltradas
-        } else {
-            return array
-        }
+        return checkFiltered
     }
 
     return (
