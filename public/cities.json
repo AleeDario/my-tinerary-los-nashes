@@ -1,0 +1,98 @@
+[
+    {
+        "id": "city1",
+        "name": "Buenos Aires",
+        "continent": "America",
+        "photo": "https://i.ibb.co/txzvqGy/buenos-aires.webp",
+        "population": 3075646,
+        "userId": "admin1"
+    },
+    {
+        "id": "city2",
+        "name": "Rome",
+        "continent": "Europe",
+        "photo": "https://i.ibb.co/RQNx6zf/rome.webp",
+        "population": 2857321,
+        "userId": "admin1"
+    },
+    {
+        "id": "city3",
+        "name": "New York",
+        "continent": "America",
+        "photo": "https://i.ibb.co/MpNxDVn/london.webp",
+        "population": 19336776,
+        "userId": "admin1"
+    },
+    {
+        "id": "city4",
+        "name": "París",
+        "continent": "Europe",
+        "photo": "https://i.ibb.co/2Nc3NWJ/paris.webp",
+        "population": 2243833,
+        "userId": "admin1"
+    },
+    {
+        "id": "city5",
+        "name": "Rio De Janeiro",
+        "continent": "America",
+        "photo": "https://i.ibb.co/J5VVR07/rio-de-janeiro.webp",
+        "population": 17366189,
+        "userId": "admin1"
+    },
+    {
+        "id": "city6",
+        "name": "Dubai",
+        "continent": "Asia",
+        "photo": "https://i.ibb.co/M5yrQNr/dubai.webp",
+        "population": 3331420,
+        "userId": "admin1"
+    },
+    {
+        "id": "city7",
+        "name": "London",
+        "continent": "Europe",
+        "photo": "https://i.ibb.co/MpNxDVn/london.webp",
+        "population": 9002488,
+        "userId": "admin1"
+    },
+    {
+        "id": "city8",
+        "name": "Barcelona",
+        "continent": "Europe",
+        "photo": "https://i.ibb.co/XJGYkzT/barcelona.webp",
+        "population": 1636732,
+        "userId": "admin1"
+    },
+    {
+        "id": "city9",
+        "name": "Pekín",
+        "continent": "Asia",
+        "photo": "https://i.ibb.co/34V0GV3/pekin.jpg",
+        "population": 21893095,
+        "userId": "admin1"
+    },
+    {
+        "id": "city10",
+        "name": "Cape Town",
+        "continent": "Sudafrica",
+        "photo": "https://i.ibb.co/TtWB4bH/cape-town.webp",
+        "population": 7481156,
+        "userId": "admin1"
+    },
+    {
+        "id": "city11",
+        "name": "Cartagena",
+        "continent": "America",
+        "photo": "https://i.ibb.co/K03pvjk/cartagena.webp",
+        "population": 216365,
+        "userId": "admin1"
+    },
+    {
+        "id": "city12",
+        "name": "Sídney",
+        "continent": "Australia",
+        "photo": "https://i.ibb.co/tYyHMkD/sidney.webp",
+        "population": 5361466,
+        "userId": "admin1"
+    }
+]
