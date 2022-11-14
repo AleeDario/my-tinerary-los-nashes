@@ -1,57 +1,29 @@
 import React, { useRef, useState, useEffect } from 'react'
 import HotelCard from '../components/HotelCard'
+import axios from 'axios'
+
 
 export default function Hotels() {
 
-    let [hoteles, setHoteles] = useState([])
     let [hotelesFiltrados, setHotelesFiltrados] = useState([])
     const searchId = useRef()
     const selectId = useRef()
 
     useEffect(() => {
-        fetch('../places.json')
-            .then(response => response.json())
-            .then(response => setHoteles(response))
+        axios.get(`http://localhost:8000/api/hotels/`)
+            .then(res => setHotelesFiltrados(res.data.response))
+            .catch(err => console.log(err))
 
-        fetch('../places.json')
-            .then(response => response.json())
-            .then(response => setHotelesFiltrados(response))
     }, [])
 
-    
     function filterCheckCards() {
-
-        let orderFiltered = sortHotels()
-        let searchFiltered = filterSearch(orderFiltered)
-        localStorage.setItem('searchFiltrados', JSON.stringify(searchFiltered))
-        setHotelesFiltrados(searchFiltered)
-        console.log(searchFiltered)
-        localStorage.setItem('hotelesFiltrados', JSON.stringify(searchFiltered))
-    }
-
-    function sortHotels() {
-        let hotelesOrdenados
         let order = selectId.current.value
-        if(order !== 'default'){
-            if (order === 'asc') {
-                hotelesOrdenados = hoteles.sort((a, b) => a.capacity - b.capacity).map((hotel) => hotel)
-            } else if (order === 'desc') {
-                hotelesOrdenados = hoteles.sort((a, b) => b.capacity - a.capacity).map((hotel) => hotel)
-            }
-            setHotelesFiltrados(hotelesOrdenados)
-            return hotelesOrdenados
-        } else {
-            return hoteles
+        if (order !== 'asc' && order !== 'desc') {
+            order = 'asc'
         }
-    }
-
-    function filterSearch(array) {
-        if (searchId.current.value !== '') {
-            let hotelesFiltrados = array.filter((hotel) => hotel.name.toLowerCase().includes(searchId.current.value.toLowerCase()))
-            return hotelesFiltrados
-        } else {
-            return array
-        }
+        let search = searchId.current.value
+        axios.get(`http://localhost:8000/api/hotels?name=${search}&order=${order}`)
+            .then(res => setHotelesFiltrados(res.data.response))
     }
 
     return (
