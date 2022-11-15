@@ -7,7 +7,7 @@
 
 
 body {
-    background-color: #DFFFE2;
+    background-color: rgba(151,201,212,255);
 }
 
 /* Display flex */
@@ -1243,7 +1243,7 @@ body {
     padding-right: 100px;
 }
 
-.btn2 {
+.btn2, .btn3 {
     background-color: transparent;
     color: white;
     padding: 1em;
@@ -1254,6 +1254,11 @@ body {
     border-radius: 5px;
     overflow: hidden;
     transition: all 0.2s;
+}
+
+.btn3:hover{
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
 }
 
 svg {
@@ -1278,7 +1283,7 @@ nav {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-video {
+.videoHome {
     width: 100%;
     height: 50em;
     object-fit: cover;
@@ -1293,6 +1298,10 @@ video {
     color: white;
     margin-bottom: 1em;
     text-shadow: -3px 3px 2px rgba(0, 0, 0, 1);
+}
+
+.caorusel{
+    padding: 2em 6em 2em 6em;
 }
 
 .caorusel img:hover {
@@ -1563,7 +1572,7 @@ video {
 
 /* _____________________________________________________ */
 /* Form inputs */
-.input-wrapper input {
+.input-wrapper input, .input-wrapper select {
     background-color: #eee;
     border: none;
     padding: 1rem;
@@ -1575,8 +1584,24 @@ video {
     width: 100%;
 }
 
-.input-wrapper input:focus {
+.input-wrapper input:focus, .input-wrapper select:focus {
     outline-color: lightcoral;
+}
+
+.title-select{
+    color: lightcoral;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.imgFondo{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: opacity(0.8);
 }
 
 /* Form submit button sign up*/
@@ -1596,7 +1621,7 @@ video {
     overflow: hidden;
     position: relative;
     height: 2em;
-    width: 10em;
+    width: 12em;
     display: flex;
     justify-content: center;
 }
@@ -1638,6 +1663,7 @@ video {
     width: 80%;
 }
 
+
 .remember-password a {
     color: #3D5A80;
     text-decoration: none;
@@ -1653,8 +1679,19 @@ video {
     gap: 1em;
     border-radius: 30px;
     background: #e0e0e0;
-    box-shadow: 15px 15px 30px #bebebe,
-        -15px -15px 30px #ffffff;
+    box-shadow: 10px 11px 19px 0px rgba(0,0,0,.8);
+}
+
+.cardForm{
+    width: 100%;
+    height: auto;
+    display: flex;
+    gap: 1em;
+    border-radius: 30px;
+    border-top: solid #EE6C4D;
+    border-bottom: solid #EE6C4D;
+    background: #e0e0e0;
+    box-shadow: 10px 11px 19px 0px rgba(0,0,0,.8);
 }
 
 .cardCity {
@@ -1666,8 +1703,7 @@ video {
     gap: 1em;
     border-radius: 30px;
     background: #e0e0e0;
-    box-shadow: 15px 15px 30px #bebebe,
-        -15px -15px 30px #ffffff;
+    box-shadow: 10px 11px 19px 0px rgba(0,0,0,.8);
 }
 
 .justify-evenly {
@@ -1833,6 +1869,10 @@ button:active {
 
 /* Cities */
 
+.cities-container {
+    margin-top: 20em;
+}
+
 .category-container {
     position: sticky;
     top: 5em;
@@ -1949,6 +1989,11 @@ button:active {
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   }
 
+  .titleForm{
+    text-shadow: 2px 1px 2px rgba(0,0,0,0.7);
+  }
+
+
 /* MEDIA QUERIES */
 
 @media screen and (max-width: 990px) {
@@ -1959,13 +2004,13 @@ button:active {
 
     .card-detail-cities{
         width: 80%;
-        margin-top: 35em;
+        margin-top: 20em;
         flex-direction: column;
         height: 50em;
     }
 
     .cont-event{
-        margin-top: 10em;
+        margin-top: 0;
         font-size: .7em;
     }
 
@@ -1983,11 +2028,11 @@ button:active {
 
     .main-container-sign,
     .main-container-signin {
-        margin-top: 20em;
+        margin-top: 24em;
     }
 
     .cities-container {
-        margin-top: 20.5em
+        margin-top: 26em
     }
 
     .category-container {
@@ -2044,7 +2089,27 @@ button:active {
     }
 }
 
+@media screen and (max-width: 800px) {
+
+    .cardForm-children{
+        flex-direction: column;
+    }
+
+    .cardForm{
+        width: 80%;
+    }
+
+}
+
 @media screen and (max-width: 477px) {
+
+    .card-detail-cities{
+        width: 100%;
+    }
+
+    .cont-event-children{
+        width: 90%;
+    }
 
     .svg-right {
         transform: rotate(90deg);

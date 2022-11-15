@@ -16,15 +16,15 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Home" element={<Home />} />
-        <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/SignIn" element={<SignIn />} />
-        <Route path="/Cities" element={<Cities />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/cities" element={<Cities />} />
         <Route path="/details/:id" element={<DetailsCity/>} />
-        <Route path="/Hotels" element={<Hotels />} />
+        <Route path="/hotels" element={<Hotels />} />
         <Route path="/detailsH/:id" element={<DetailsHotels />} />
-        <Route path="/NewCity" element={<NewCity />} />
-        <Route path="/NewHotel" element={<NewHotel />} />
+        <Route path="/newcity" element={<NewCity />} />
+        <Route path="/newhotel" element={<NewHotel />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </Layout>

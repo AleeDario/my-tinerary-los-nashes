@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useRef, useState, useEffect } from 'react'
 import Checkbox from '../components/Checkbox'
 import CityCard from '../components/CityCard'
+import apiUrl from '../api/url'
 
 export default function Cities() {
 
@@ -11,11 +12,11 @@ export default function Cities() {
     const searchId = useRef()
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/cities/`)
+        axios.get(`${apiUrl}/api/cities/`)
             .then(res => setCiudades(res.data.data))
             .catch(err => console.log(err))
 
-        axios.get(`http://localhost:8000/api/cities/`)
+        axios.get(`${apiUrl}/api/cities/`)
             .then(res => setCiudadesFiltradas(res.data.data))
             .catch(err => console.log(err))
 
@@ -28,7 +29,7 @@ export default function Cities() {
         let checkFiltered = filterCheck(event)
         let urlChecks = checkFiltered.map((check) => `continent=${check}`).join('&')
 
-        axios.get(`http://localhost:8000/api/cities?${urlChecks}&name=${searchId.current.value}`)
+        axios.get(`${apiUrl}/api/cities?${urlChecks}&name=${searchId.current.value}`)
             .then(res => setCiudadesFiltradas(res.data.data))
     }
 
@@ -47,6 +48,7 @@ export default function Cities() {
 
     return (
         <div className="cities-container flex m-t-16">
+            <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img'/>
             <form className="category-container flex column bg-palette2 p-2 gap-2 text-white w-20 h-50" method="get">
                 <label>
                     <input className="search-input w-100" type="search" name="search" id="search" placeholder="Search" ref={searchId} onChange={filterCheckCards} />

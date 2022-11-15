@@ -7,11 +7,11 @@ export default function Footer() {
     return (
         <footer className="m-top-2">
             <div className="flex">
-                <img className="w-100 img-h-5" src="./img/footer-border.png" alt="footer border" />
+                <img className="w-100 img-h-5" src="../img/footer-border.png" alt="footer border" />
             </div>
             <div className="first-footer flex justify-around align-center text-white bg-palette1 p-1">
                 <div>
-                    <img className="img-w-12" src="./img/logo-footer.png" alt="photo" />
+                    <img className="img-w-12" src="../img/logo-footer.png" alt="photo" />
                 </div>
                 <div className="flex column gap-1-5 p-2 justify-start">
                     <h3 className="text-center text-redpalette">Contact</h3>

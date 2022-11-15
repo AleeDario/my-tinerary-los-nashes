@@ -23,7 +23,7 @@ export default function Navbar() {
         <nav className="flex justify-between p-1 nav-container">
             <div>
                 <Navlink to='/'>
-                    <img className="img-fluid" width="300px" src="./img/logo-header.png" alt="" />
+                    <img className="img-fluid" width="300px" src="../img/logo-header.png" alt="" />
                 </Navlink>
             </div>
             <div className="flex gap-2 align-center btn-container">
@@ -31,8 +31,8 @@ export default function Navbar() {
                     <ButtonNav buton='Home' fx={mostrarBoton} />
                     {mostrarOcultar && (
                         <div>
-                            <CallToAction rute='/cities' classN='btn2' text='CITIES' />
-                            <CallToAction rute='/hotels' classN='btn2' text='HOTELS' />
+                            <CallToAction rute='/cities' classN='btn3' text='CITIES' />
+                            <CallToAction rute='/hotels' classN='btn3' text='HOTELS' />
                         </div>
                     )}
                 </div>
@@ -40,8 +40,10 @@ export default function Navbar() {
                     <ButtonNav buton='User' fx={mostrarBoton2} />
                     {mostrarOcultar2 && (
                         <div>
-                            <CallToAction rute='/signin' classN='btn2' text='SIGN IN' />
-                            <CallToAction rute='/signup' classN='btn2' text='SIGN UP' />
+                            <CallToAction rute='/signin' classN='btn3' text='SIGN IN' />
+                            <CallToAction rute='/signup' classN='btn3' text='SIGN UP' />
+                            <CallToAction rute='/newcity' classN='btn3' text='NEW CITY' />
+                            <CallToAction rute='/newhotel' classN='btn3' text='NEW HOTEL' />
                         </div>
                     )}
                 </div>
