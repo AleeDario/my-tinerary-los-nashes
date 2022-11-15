@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import HotelCard from '../components/HotelCard'
 import axios from 'axios'
+import apiUrl from '../api/url'
 
 
 export default function Hotels() {
@@ -10,7 +11,7 @@ export default function Hotels() {
     const selectId = useRef()
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/hotels/`)
+        axios.get(`${apiUrl}/api/hotels/`)
             .then(res => setHotelesFiltrados(res.data.response))
             .catch(err => console.log(err))
 
@@ -22,12 +23,13 @@ export default function Hotels() {
             order = 'asc'
         }
         let search = searchId.current.value
-        axios.get(`http://localhost:8000/api/hotels?name=${search}&order=${order}`)
+        axios.get(`${apiUrl}/api/hotels?name=${search}&order=${order}`)
             .then(res => setHotelesFiltrados(res.data.response))
     }
 
     return (
         <div className="cities-container flex m-t-16">
+            <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img'/>
             <form className="category-container flex column bg-palette2 p-2 gap-2 text-white w-20 h-50" method="get">
                 <label>
                     <input className="search-input w-100" type="search" name="search" id="search" placeholder="Search" ref={searchId} onChange={filterCheckCards} />

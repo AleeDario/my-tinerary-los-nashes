@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import BotonFlecha from './BotonFlecha'
 
@@ -20,13 +21,14 @@ export default function Carousel() {
     }, [numeroCambiante]);
 
     useEffect(() => {
-        fetch('../cities.json')
-            .then(response => response.json())
-            .then(response => setCiudades(response))
+        axios.get('http://localhost:8000/api/cities')
+            .then(res => setCiudades(res.data.data))
+            .catch(err => console.log(err))
 
-        fetch('../places.json')
-            .then(response => response.json())
-            .then(response => setHoteles(response))
+        axios.get('http://localhost:8000/api/hotels')
+            .then(res => setHoteles(res.data.response))
+            .catch(err => console.log(err))
+        // eslint-disable-next-line
     }, [])
 
     let siguiente = () => {
@@ -73,12 +75,12 @@ export default function Carousel() {
 
     return (
         <>
-            <div className="flex gap-2 caorusel p-3 justify-center align-center wrap bg-carousel">
+            <div className="flex gap-2 caorusel justify-center align-center wrap bg-carousel">
                 <BotonFlecha lado='left' fx={anterior} />
                 {
                     photosCarouselAll[numeroCambiante].map((photo, index) => {
                         return (
-                            <img key={index} className="border-radius-50" width="250px" height="250px" src={photo} alt={index} />
+                            <img key={index} className="border-radius-50" width="200px" height="200px" src={photo} alt={index} />
                         )
                     })
                 }

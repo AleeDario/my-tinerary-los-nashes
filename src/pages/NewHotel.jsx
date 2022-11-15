@@ -3,8 +3,12 @@ import { useRef } from 'react'
 import BotonEnviarForm from '../components/BotonEnviarForm'
 import InputForm from '../components/InputForm'
 import axios from 'axios'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import apiUrl from '../api/url'
 
 export default function NewHotel() {
+
     const form = useRef()
     const name = useRef()
     const photo1 = useRef()
@@ -13,6 +17,14 @@ export default function NewHotel() {
     const capacity = useRef()
     const cityId = useRef()
     let newHotel = []
+    let [citiesSelect, setCitiesSelect] = useState([])
+
+    useEffect(() => {
+        axios.get(`${apiUrl}/api/cities`)
+            .then(res => setCitiesSelect(res.data.data))
+            .catch(err => console.log(err))
+    }, [])
+
 
     const enviarFormulario = () => {
 
@@ -26,7 +38,7 @@ export default function NewHotel() {
                     userId: '636d82c86529ebe93bbef91f'
                 }
             )
-            axios.post(`http://localhost:8000/api/hotels`, newHotel)
+            axios.post(`${apiUrl}/api/hotels`, newHotel)
             form.current.reset()
             alert('Hotel creado con éxito')
             console.log(newHotel)
@@ -37,20 +49,28 @@ export default function NewHotel() {
 
     return (
         <main className="w-100 flex column align-center p-3 gap-2 main-container-sign">
-            <h1 className="text-palette2 ">New Hotel</h1>
+            <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img'/>
             <div className="flex justify-center">
                 <form ref={form}>
-                    <div className="card flex column align-center justify-center container-fluid">
-                        <img className="img-w-20 flex align-center img-fluid" src="../img/signup-img.png" alt="drawing" />
-                        <div className="input-wrapper flex column gap-1">
-                            <InputForm classN="signup-input" type="text" place="Name" id="name" refId={name} />
-                            <InputForm classN="signup-input" type="text" place='Photo 1' id="Photo1" refId={photo1} />
-                            <InputForm classN="signup-input" type="text" place='Photo 2' id="Photo2" refId={photo2} />
-                            <InputForm classN="signup-input" type="text" place='Photo 3' id="Photo3" refId={photo3} />
-                            <InputForm classN="signup-input" type="text" place="Capacity" id="capacity" refId={capacity} />
-                            <InputForm classN="signup-input" type="text" place="CityId" id="cityId" refId={cityId} />
+                    <div className="cardForm flex column align-center justify-center container-fluid p-2">
+                        <h1 className="text-palette2 titleForm">New Hotel</h1>
+                        <div className='flex cardForm-children container-fluid'>
+                            <img width='400px' className="flex align-center img-fluid" src="../img/newHotel.png" alt="drawing" />
+                            <div className='flex column gap-1 justify-center align-center container-fluid'>
+                                <div className="input-wrapper flex column gap-1">
+                                    <InputForm classN="signup-input" type="text" place="Name" id="name" refId={name} />
+                                    <InputForm classN="signup-input" type="text" place='Url Photo 1' id="Photo1" refId={photo1} />
+                                    <InputForm classN="signup-input" type="text" place='Url Photo 2' id="Photo2" refId={photo2} />
+                                    <InputForm classN="signup-input" type="text" place='Url Photo 3' id="Photo3" refId={photo3} />
+                                    <InputForm classN="signup-input" type="text" place="Capacity" id="capacity" refId={capacity} />
+                                    <label className='title-select' for='cityId'>Select a city :</label>
+                                    <select ref={cityId} className="signup-input select" id="cityId">
+                                        {citiesSelect.map(city => <option key={city._id} value={city._id}>{city.name}</option>)}
+                                    </select>
+                                </div>
+                                <BotonEnviarForm fx={enviarFormulario} texto='Create Hotel' />
+                            </div>
                         </div>
-                        <BotonEnviarForm fx={enviarFormulario} texto='Create Hotel' />
                     </div>
                 </form>
             </div>
