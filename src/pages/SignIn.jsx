@@ -33,6 +33,7 @@ export default function SignIn() {
 
     return (
         <main className="w-100 flex column align-center p-3 gap-2 main-container-signin">
+            <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img'/>
             <h1 className="text-palette2">Sign In</h1>
             <div className="flex justify-center">
                 <form ref={form}>
@@ -49,7 +50,7 @@ export default function SignIn() {
 
                         <div className="remember-password">
                             <Navlink to='/forgot-password'>
-                                <a>Forgot your password?</a>
+                                <p>Forgot your password?</p>
                             </Navlink>
                         </div>
 

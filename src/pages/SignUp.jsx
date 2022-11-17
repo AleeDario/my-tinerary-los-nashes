@@ -56,6 +56,7 @@ export default function SignUp() {
 
     return (
         <main className="w-100 flex column align-center p-3 gap-2 main-container-sign">
+            <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img'/>
             <h1 className="text-palette2 ">Sign Up</h1>
             <div className="flex justify-center">
                 <form ref={form}>
