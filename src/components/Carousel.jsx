@@ -1,10 +1,15 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import BotonFlecha from './BotonFlecha'
+import { useSelector, useDispatch } from 'react-redux'
+import cityActions from '../redux/actions/cityActions'
 
 export default function Carousel() {
 
-    let [ciudades, setCiudades] = useState([])
+    const dispatch = useDispatch()
+    const { cities} = useSelector(state => state.city)
+    const { getAllCities} = cityActions
+
     let [hoteles, setHoteles] = useState([])
     let [photosCarouselHoteles, setPhotosHoteles] = useState([])
     let [photosCarouselCiudades, setPhotosCiudades] = useState([])
@@ -21,9 +26,7 @@ export default function Carousel() {
     }, [numeroCambiante]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/cities')
-            .then(res => setCiudades(res.data.data))
-            .catch(err => console.log(err))
+        dispatch(getAllCities())
 
         axios.get('http://localhost:8000/api/hotels')
             .then(res => setHoteles(res.data.response))
@@ -54,17 +57,17 @@ export default function Carousel() {
     setPhotosHoteles = hoteles.filter((hotel) => (photosCarouselHoteles.length < 4 && !photosCarouselHoteles.includes(hotel.photo)) && photosCarouselHoteles.push(hotel.photo[numeroRandom(hotel.photo.length - 1)]))
 
     // eslint-disable-next-line
-    setPhotosCiudades = ciudades.filter(() => {
-        let ciudadAleatoria = numeroRandom(ciudades.length - 1)
-        if (photosCarouselCiudades.length < 4 && !photosCarouselCiudades.includes(ciudades[ciudadAleatoria].photo)) {
-            photosCarouselCiudades.push(ciudades[ciudadAleatoria].photo)
+    setPhotosCiudades = cities.filter(() => {
+        let ciudadAleatoria = numeroRandom(cities.length - 1)
+        if (photosCarouselCiudades.length < 4 && !photosCarouselCiudades.includes(cities[ciudadAleatoria].photo)) {
+            photosCarouselCiudades.push(cities[ciudadAleatoria].photo)
         }
     })
     // eslint-disable-next-line
-    setPhotosCiudades2 = ciudades.filter(() => {
-        let ciudadAleatoria = numeroRandom(ciudades.length - 1)
-        if (photosCarouselCiudades2.length < 4 && !photosCarouselCiudades2.includes(ciudades[ciudadAleatoria].photo) && !photosCarouselCiudades.includes(ciudades[ciudadAleatoria].photo)) {
-            photosCarouselCiudades2.push(ciudades[ciudadAleatoria].photo)
+    setPhotosCiudades2 = cities.filter(() => {
+        let ciudadAleatoria = numeroRandom(cities.length - 1)
+        if (photosCarouselCiudades2.length < 4 && !photosCarouselCiudades2.includes(cities[ciudadAleatoria].photo) && !photosCarouselCiudades.includes(cities[ciudadAleatoria].photo)) {
+            photosCarouselCiudades2.push(cities[ciudadAleatoria].photo)
         }
     })
 
