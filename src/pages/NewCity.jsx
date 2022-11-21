@@ -2,10 +2,15 @@ import React from 'react'
 import { useRef } from 'react'
 import BotonEnviarForm from '../components/BotonEnviarForm'
 import InputForm from '../components/InputForm'
-import axios from 'axios'
-import apiUrl from '../api/url'
+import { useDispatch} from 'react-redux'
+import cityActions from '../redux/actions/cityActions'
+import Swal from 'sweetalert2'
+
 
 export default function NewCity() {
+
+    const dispatch = useDispatch()
+    const { createCity} = cityActions
 
     const form = useRef()
     const name = useRef()
@@ -13,31 +18,48 @@ export default function NewCity() {
     const photo = useRef()
     const population = useRef()
 
-
-    const enviarFormulario = () => {
+    async function enviarFormulario(event) {
         let newCity;
+        event.preventDefault()
 
-        if (name.current.value !== '' && continent.current.value !== '' && photo.current.value !== '' && population.current.value !== '') {
-            newCity = {
-                name: name.current.value,
-                continent: continent.current.value,
-                photo: photo.current.value,
-                population: population.current.value,
-                userId: '636d82c86529ebe93bbef91f',
+        newCity = {
+            name: name.current.value,
+            continent: continent.current.value,
+            photo: photo.current.value,
+            population: population.current.value,
+            userId: '636d82c86529ebe93bbef91f',
+        }
+
+        try {
+            let res = await dispatch(createCity(newCity))
+            console.log(res.payload)
+            if (res.payload.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'City created successfully.',
+                    showConfirmButton: true,
+                })
+                .then(result => {
+                    if(result.isConfirmed){
+                        window.location.href = `/details/${res.payload.id}`
+                    }
+                })  
+                form.current.reset()    
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    html: res.payload.messages.join(' <br> '),
+                })
             }
-
-            axios.post(`${apiUrl}/api/cities`, newCity)
-            form.current.reset()
-            alert('Ciudad creada con éxito')
-
-        } else {
-            alert('Todos los campos son obligatorios')
+        } catch (error) {
+            console.log(error)
         }
     }
 
     return (
         <main className="w-100 flex column align-center p-3 gap-2 main-container-sign">
-            <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img'/>
+            <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img' />
             <div className="flex justify-center">
                 <form ref={form}>
                     <div className="cardForm flex column align-center justify-center container-fluid p-2">

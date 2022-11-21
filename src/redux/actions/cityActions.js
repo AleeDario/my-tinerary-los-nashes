@@ -32,10 +32,36 @@ const getCitiesFiltred = createAsyncThunk("getCitiesFiltred", async (data) => {
     }
 })
 
+const createCity = createAsyncThunk("createCity", async (newCity) => {
+    try{
+        const res = await axios.post(`${apiUrl}/api/cities`, newCity)
+
+        if (res.data.id) {
+            return {
+                id: res.data.id,
+                success: true,
+                response: newCity,
+            }
+        } else {
+            return {
+                success: false,
+                messages: res.data.message,
+                
+            }
+        }
+    }catch(error){
+        return {
+            success: false,
+            response: 'Ocurrio un error'
+        }
+    }
+})
+
 
 const cityActions = {
     getAllCities,
-    getCitiesFiltred
+    getCitiesFiltred,
+    createCity
 }
 
 export default cityActions

@@ -1,7 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
 import cityActions from "../actions/cityActions";
 
-const { getAllCities , getCitiesFiltred } = cityActions;
+const { getAllCities , getCitiesFiltred , createCity} = cityActions;
 
 const initialState = {
     cities: [],
@@ -20,6 +20,11 @@ const cityReducer = createReducer(initialState,
             })
             .addCase(getCitiesFiltred.fulfilled, (state, action) => {
                 return { ...state, cities: action.payload.res , checks: action.payload.checks , name: action.payload.name ,checked: action.payload.checked};
+            })
+            .addCase(createCity.fulfilled,(state, action) => {
+                if (action.payload.success) {
+                    state.cities.push(action.payload)
+                }
             })
     }
 );
