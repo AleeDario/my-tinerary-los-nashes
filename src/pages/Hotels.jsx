@@ -35,6 +35,8 @@ export default function Hotels() {
         }
 
         dispatch(getHotelsFiltered(data))
+        
+        }
 
         return (
             <div className="cities-container flex m-t-16">
@@ -65,4 +67,3 @@ export default function Hotels() {
             </div>
         )
     }
-}
