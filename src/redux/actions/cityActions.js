@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import apiUrl from '../../api/url'
 
-const getAllCities = createAsyncThunk("getAllCities", async (data) => {
+const getAllCities = createAsyncThunk("getAllCities", async () => {
     try{
         const res = await axios.get(`${apiUrl}/api/cities`)
         return res.data.data
@@ -57,11 +57,49 @@ const createCity = createAsyncThunk("createCity", async (newCity) => {
     }
 })
 
+const getCitiesAdmin = createAsyncThunk("getCitiesAdmin", async (id) => {
+    try{
+        const res = await axios.get(`${apiUrl}/api/cities?userId=${id}`)
+        return res.data.data
+    }catch(error){
+        console.log(error)
+        return {
+            payload: 'Error'
+        }
+    }
+})
+
+const deleteCity = createAsyncThunk("deleteCity", async (id) => {
+    try{
+        const res = await axios.delete(`${apiUrl}/api/cities/${id}`)
+        return res.data
+    }catch(error){
+        console.log(error)
+        return {
+            payload: 'Error'
+        }
+    }
+})
+
+const updateCity = createAsyncThunk("updateCity", async (data) => {
+    try{
+        const res = await axios.put(`${apiUrl}/api/cities/${data.id}`, data.citie)
+        return res.data
+    }catch(error){
+        console.log(error)
+        return {
+            payload: 'Error'
+        }
+    }
+})
 
 const cityActions = {
     getAllCities,
     getCitiesFiltred,
-    createCity
+    createCity,
+    getCitiesAdmin,
+    deleteCity,
+    updateCity
 }
 
 export default cityActions
