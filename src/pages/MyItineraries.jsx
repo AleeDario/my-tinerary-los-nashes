@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import cityActions from '../redux/actions/cityActions'
-import ItineraryCardAdmin from '../components/ShowCardAdmin'
+import ItineraryCardAdmin from '../components/ItineraryCardAdmin'
 
 export default function MyItineraries() {
     const dispatch = useDispatch()
