@@ -1,11 +1,12 @@
 import { createReducer } from "@reduxjs/toolkit";
 import cityActions from "../actions/cityActions";
 
-const { getAllCities , getCitiesFiltred , createCity, getCitiesAdmin, deleteCity, updateCity} = cityActions;
+const { getAllCities , getCitiesFiltred , createCity, getCitiesAdmin, deleteCity, updateCity, getItineraries, updateItinerary, deleteItinerary} = cityActions;
 
 const initialState = {
     cities: [],
     citiesAdmin: [],
+    itineraries: [],
     checks: '',
     name: '',
     continent: [],
@@ -36,6 +37,16 @@ const cityReducer = createReducer(initialState,
             })
             .addCase(updateCity.fulfilled, (state, action) => {
                 return { ...state};
+            })
+            .addCase(getItineraries.fulfilled, (state, action) => {
+                return { ...state, itineraries: action.payload};
+            })
+            .addCase(updateItinerary.fulfilled, (state, action) => {
+                return { ...state};
+            })
+            .addCase(deleteItinerary.fulfilled, (state, action) => {
+                let itinerary = state.itineraries.filter(itinerary => itinerary._id !== action.payload.data._id)
+                return { ...state, itineraries: itinerary};
             })
     }
 );

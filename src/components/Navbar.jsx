@@ -33,6 +33,8 @@ export default function Navbar() {
                         <div>
                             <CallToAction rute='/cities' classN='btn3' text='CITIES' />
                             <CallToAction rute='/hotels' classN='btn3' text='HOTELS' />
+                            <CallToAction rute='/mycities' classN='btn3' text='MY CITIES' />
+                            <CallToAction rute='/myhotels' classN='btn3' text='MY HOTELS' />
                         </div>
                     )}
                 </div>
