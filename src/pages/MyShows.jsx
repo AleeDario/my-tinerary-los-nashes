@@ -1,17 +1,17 @@
 import React, {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import cityActions from '../redux/actions/cityActions'
-import ItineraryCardAdmin from '../components/ShowCardAdmin'
+import hotelActions from '../redux/actions/hotelActions'
+import ShowCardAdmin from '../components/ShowCardAdmin'
 
-export default function MyItineraries() {
+export default function MyShows() {
     const dispatch = useDispatch()
-    const { itineraries } = useSelector(state => state.city)
-    const { getItineraries } = cityActions	
+    const { shows } = useSelector(state => state.hotel)
+    const { getShows } = hotelActions
 
     let admId = '636d82c86529ebe93bbef91f'
 
     useEffect(() => {
-        dispatch(getItineraries(admId))
+        dispatch(getShows(admId))
         // eslint-disable-next-line
     }, [])
 
@@ -21,9 +21,9 @@ export default function MyItineraries() {
 
             <div className="cards-container container-fluid w-90 flex wrap gap-2 justify-center align-center">
 
-                {itineraries.length > 0 ? (
-                    itineraries.map((itinerary, index) => {
-                        return <ItineraryCardAdmin itineraries={itinerary} key={index} idAdm={admId} />
+                {shows.length > 0 ? (
+                    shows.map((show, index) => {
+                        return <ShowCardAdmin shows={show} key={index} idAdm={admId} />
                     }))
                     : (
                         <img className='img-fluid' width='100%' src="./img/notsearch.png" alt="Not Found Search" />

@@ -1,129 +1,99 @@
 import React from 'react'
-import { useDispatch} from 'react-redux'
-import Swal from 'sweetalert2'
-import hotelActions from '../redux/actions/hotelActions'
+import { useParams } from 'react-router';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import apiUrl from '../api/url';
 
-export default function HotelCardAdmin(props) {
-    let { hotel } = props
-    const dispatch = useDispatch()
-    const { deleteHotel, updateHotel } = hotelActions
+export default function DetailsHotels() {
+    const { id } = useParams()
 
-    async function deleteAdmin() {
-        try {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                    dispatch(deleteHotel(hotel._id))
-                    window.location.reload()
-                }
-            })
+    const [detailCards, setDetailCards] = useState([])
+    const [events, setEvents] = useState([])
 
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    let [mostrarEventoUno, setMostrarEventoUno] = useState(false)
+    let [mostrarEventoDos, setMostrarEventoDos] = useState(false)
 
-    async function updateAdmin() {
-        try {
-            const { value: formValues } = await Swal.fire({
-                title: `Update Hotel \n ${hotel.name} `,
-                showCancelButton: true,
-                confirmButtonText: 'Update',
-                html:
-                    '<input placeHolder="Name" id="name" class="swal2-input">' +
-                    '<input placeHolder="Photo 1 Url" id="photo1" class="swal2-input">' +
-                    '<input placeHolder="Photo 2 Url" id="photo2" class="swal2-input">' +
-                    '<input placeHolder="Photo 3 Url" id="photo3" class="swal2-input">' +
-                    '<input placeHolder="Capacity" id="capacity" class="swal2-input">' ,
-                focusConfirm: false,
-                preConfirm: () => {
-                    let name = document.getElementById('name').value
-                    let photo1 = document.getElementById('photo1').value
-                    let photo2 = document.getElementById('photo2').value
-                    let photo3 = document.getElementById('photo3').value
-                    let photo = []
-                    let capacity = document.getElementById('capacity').value
+    useEffect(() => {
+        axios.get(`${apiUrl}/api/hotels/${id}`)
+            .then(res => setDetailCards(res.data.data))
 
-                    let data = {
-                        id: hotel._id,
-                        hotels: {
+        axios.get(`${apiUrl}/api/shows?hotelId=${id}`)
+            .then(res => setEvents(res.data.data))
+        // eslint-disable-next-line
+    }, [])
 
-                        }
-                    }
+    console.log(events)
 
-                    if(name !== ''){
-                        data.hotels.name = name
-                    }
-                    if(photo1 !== ''){
-                        photo.push(photo1)
-                    }else{
-                        photo.push(hotel.photo[0])
-                    }
-                    if(photo2 !== ''){
-                        photo.push(photo2)
-                    }else{
-                        photo.push(hotel.photo[1])
-                    }
-                    if(photo3 !== ''){
-                        photo.push(photo3)
-                    }else{
-                        photo.push(hotel.photo[2])
-                    }
-                    if(capacity !== ''){
-                        data.hotels.capacity = capacity
-                    }
-                    if(photo !== []){
-                        data.hotels.photo = photo
-                    }else{
-                        data.hotels.photo = hotel.photo
-                    }
-
-                    dispatch(updateHotel(data))
-                    window.location.reload()
-                }
-            })
-
-            if (formValues) {
-                Swal.fire(JSON.stringify(formValues))
-            }
-            
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     function numeroRandom(numero) {
         return Math.floor(Math.random() * numero)
     }
 
-    return (
-        <div className="card-container bg-palette1 flex column justify-center" >
-            <div className="img-card-container">
-                <img className="img-card"
-                    src={hotel.photo[numeroRandom(hotel.photo.length - 1)]}
-                    alt={hotel.name} />
-            </div>
-            <div className="text-card">
-                <h3>{hotel.name}</h3>
-                <p>Capacity: {hotel.capacity}</p>
-            </div>
-            <div className='flex container-fluid align-center justify-around m-b-2'>
-                <button className="bg-palette5" onClick={updateAdmin}>Update</button>
-                <button className="bg-palette2" onClick={deleteAdmin}>Delete</button>
-            </div>
+    let mostrarEvento1 = () => {
+        setMostrarEventoUno(!mostrarEventoUno)
+        setMostrarEventoDos(false)
+    }
 
-        </div>
-    )
+    let mostrarEvento2 = () => {
+        setMostrarEventoUno(false)
+        setMostrarEventoDos(!mostrarEventoDos)
+    }
+
+    if (detailCards.length !== 0) {
+        return (
+            <div className='flex column justify-center align-center contenedorGral'>
+                <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img'/>
+                <div className="card-detail-cities flex justify-center m-1 m-t-11 container-fluid">
+                    <div className="img-card-detail bg-palette2 p-1 flex justify-center">
+                        <img className="img-w-30 border-radius-1 img-h-20 img-fluid" src={detailCards.photo[numeroRandom(detailCards.photo.length - 1)]} alt={detailCards.name} />
+                    </div>
+                    <div className="text-card-detail flex column justify-center align-center bg-palette1 text-white gap-2 p-1">
+                        <div className="logo-details">
+                            <img className="img-w-5" src="./img/building1.png" alt="" />
+                        </div>
+                        <div className="flex column justify-center align-center gap-1">
+                            <h1>{detailCards.name}</h1>
+                            <p>{detailCards.capacity}</p>
+                        </div>
+                        <button className="bg-palette2 w-40 flex justify-center p-1 p-x-3">
+                            <p>Comments</p>
+                        </button>
+                        {events.length !== 0 && (
+                            <div className='flex justify-center gap-2 w-100'>
+                            <button onClick={mostrarEvento1} className="botonEvent bg-palette2 w-40 flex justify-center p-1 p-x-3">
+                                <p>Show One</p>
+                            </button>
+                            <button onClick={mostrarEvento2} className="botonEvent bg-palette2 w-40 flex justify-center p-1 p-x-3">
+                                <p>Show Two</p>
+                            </button>
+                        </div>
+                        )}
+                    </div>
+                </div>
+                {mostrarEventoUno && (
+                    <div className='flex justify-center cont-event m-t-5 '>
+                    <div className='flex column justify-center gap-1 align-center bg-palette1 w-50 text-white p-3 border-radius-2 cont-event-children'>
+                            <img className='img-fluid' width='400px' src={events[0].photo} alt="" />
+                            <h1>{events[0].name}</h1>
+                            <p>{events[0].description}</p>
+                            <p>{events[0].date.split('T00:00:00.000Z')}</p>
+                            <p>Price : ${events[0].price}</p>
+                        </div>
+                    </div>
+                )}
+                {mostrarEventoDos && (
+                    <div className='flex justify-center cont-event m-t-5 '>
+                    <div className='flex column justify-center gap-1 align-center bg-palette1 w-50 text-white p-3 border-radius-2 cont-event-children'>
+                            <img className='img-fluid' width='400px' src={events[1].photo} alt="" />
+                            <h1>{events[1].name}</h1>
+                            <p>{events[1].description}</p>
+                            <p>{events[1].date.split('T00:00:00.000Z')}</p>
+                            <p>Price : ${events[1].price}</p>
+                        </div>
+                    </div>
+                )}
+            </div>
+        )
+    }
+
 }
