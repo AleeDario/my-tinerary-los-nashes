@@ -10,6 +10,7 @@ import DetailsCity from "./pages/DetailsCity";
 import DetailsHotels from "./pages/DetailsHotels";
 import NewCity from "./pages/NewCity";
 import NewHotel from "./pages/NewHotel";
+import MyCities from "./pages/MyCities";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/detailsH/:id" element={<DetailsHotels />} />
         <Route path="/newcity" element={<NewCity />} />
         <Route path="/newhotel" element={<NewHotel />} />
+        <Route path="/mycities" element={<MyCities />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </Layout>
