@@ -94,13 +94,53 @@ const updateHotel = createAsyncThunk("updateHotel", async (data) => {
     }
 })
 
+const getShows = createAsyncThunk("getShows", async (id) => {
+    try{
+        const res = await axios.get(`${apiUrl}/api/shows?userId=${id}`)
+        return res.data.data
+    }catch(error){
+        console.log(error)
+        return {
+            payload: 'Error'
+        }
+    }
+})
+
+const updateShow = createAsyncThunk("updateShow", async (data) => {
+    try{
+        const res = await axios.patch(`${apiUrl}/api/shows/${data.id}`, data.show)
+        return res.data
+    }catch(error){
+        console.log(error)
+        return {
+            payload: 'Error'
+        }
+    }
+})
+
+const deleteShow = createAsyncThunk("deleteShow", async (id) => {
+    try{
+        const res = await axios.delete(`${apiUrl}/api/shows/${id}`)
+        return res.data
+    }catch(error){
+        console.log(error)
+        return {
+            payload: 'Error'
+        }
+    }
+})
+
+
 const hotelActions = {
     getAllHotels,
     getHotelsFiltered,
     createHotel,
     getHotelsAdmin,
     deleteHotel,
-    updateHotel
+    updateHotel,
+    getShows,
+    updateShow,
+    deleteShow
 }
 
 export default hotelActions
