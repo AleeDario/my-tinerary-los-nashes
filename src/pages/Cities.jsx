@@ -1,44 +1,63 @@
-import axios from 'axios'
 import React, { useRef, useState, useEffect } from 'react'
 import Checkbox from '../components/Checkbox'
 import CityCard from '../components/CityCard'
-import apiUrl from '../api/url'
+import { useDispatch, useSelector } from 'react-redux'
+import cityActions from '../redux/actions/cityActions'
+
 
 export default function Cities() {
 
-    let [ciudades, setCiudades] = useState([])
-    let [ciudadesFiltradas, setCiudadesFiltradas] = useState([])
-    let [checks, setChecks] = useState([])
+    const dispatch = useDispatch()
+    const { cities, checks, name, checked, continent } = useSelector(state => state.city)
+    const { getAllCities, getCitiesFiltred } = cityActions
+
+    let [checksbox, setChecks] = useState([])
     const searchId = useRef()
+    const inputCheck = useRef()
 
     useEffect(() => {
-        axios.get(`${apiUrl}/api/cities/`)
-            .then(res => setCiudades(res.data.data))
-            .catch(err => console.log(err))
+        if (checks || name) {
+            let info = {
+                checks, name, checked
+            }
+            dispatch(getCitiesFiltred(info))
+            searchId.current.value = name
+            if (checked) {
+                checked.forEach(check => {
+                    let input = Array.from(inputCheck.current).find(input => input.value === check)
+                    input.checked = true
+                })
+            }
 
-        axios.get(`${apiUrl}/api/cities/`)
-            .then(res => setCiudadesFiltradas(res.data.data))
-            .catch(err => console.log(err))
-
+        } else {
+            dispatch(getAllCities())
+        }
+        // eslint-disable-next-line
     }, [])
-
-    let checkCiudades = [...new Set(ciudades.map((ciudad) => ciudad.continent))]
 
     function filterCheckCards(event) {
 
-        let checkFiltered = filterCheck(event)
-        let urlChecks = checkFiltered.map((check) => `continent=${check}`).join('&')
+        let filter = filterCheck(event)
 
-        axios.get(`${apiUrl}/api/cities?${urlChecks}&name=${searchId.current.value}`)
-            .then(res => setCiudadesFiltradas(res.data.data))
+        let checked = filter
+
+        filter = filter.map((check) => `continent=${check}`).join('&')
+
+        let data = {
+            name: searchId.current.value,
+            checks: filter,
+            checked: checked
+        }
+
+        dispatch(getCitiesFiltred(data))
     }
 
     function filterCheck(event) {
         let checkFiltered = []
-        if(event.target.checked) {
-            checkFiltered =  [...checks, event.target.name]
+        if (event.target.checked) {
+            checkFiltered = [...checked, event.target.name]
         } else {
-            checkFiltered = checks.filter((check) => check !== event.target.name)
+            checkFiltered = checksbox.filter((check) => check !== event.target.name)
         }
 
         setChecks(checkFiltered)
@@ -48,21 +67,24 @@ export default function Cities() {
 
     return (
         <div className="cities-container flex m-t-16">
-            <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img'/>
-            <form className="category-container flex column bg-palette2 p-2 gap-2 text-white w-20 h-50" method="get">
-                <label>
-                    <input className="search-input w-100" type="search" name="search" id="search" placeholder="Search" ref={searchId} onChange={filterCheckCards} />
-                </label>
-
-                {checkCiudades.map((continente, index) => {
-                    return <Checkbox continent={continente} valor={continente} fx={filterCheckCards} key={index} />
-                })}
-            </form>
+            <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img' />
+            <div className="category-container flex column bg-palette2 p-2 gap-2 text-white w-20 h-50">
+                <form >
+                    <label>
+                        <input className="search-input w-100" type="search" name="search" id="search" placeholder="Search" ref={searchId} onChange={filterCheckCards} />
+                    </label>
+                </form>
+                <form className='flex column gap-2 p-1' ref={inputCheck}>
+                    {continent.map((continente, index) => {
+                        return <Checkbox continent={continente} valor={continente} fx={filterCheckCards} key={index} />
+                    })}
+                </form>
+            </div>
 
             <div className="cards-container container-fluid w-90 flex wrap gap-2 justify-center align-center">
 
-                {ciudadesFiltradas.length > 0 ? (
-                    ciudadesFiltradas.map((city, index) => {
+                {cities.length > 0 ? (
+                    cities.map((city, index) => {
                         return <CityCard city={city} key={index} />
                     }))
                     : (

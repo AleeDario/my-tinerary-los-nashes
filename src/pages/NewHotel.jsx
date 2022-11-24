@@ -1,14 +1,14 @@
 import React from 'react'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import BotonEnviarForm from '../components/BotonEnviarForm'
 import InputForm from '../components/InputForm'
-import axios from 'axios'
-import { useEffect } from 'react'
-import { useState } from 'react'
-import apiUrl from '../api/url'
+import hotelActions from '../redux/actions/hotelActions'
+import Swal from 'sweetalert2'
+import cityActions from '../redux/actions/cityActions'
+
 
 export default function NewHotel() {
-
     const form = useRef()
     const name = useRef()
     const photo1 = useRef()
@@ -16,40 +16,57 @@ export default function NewHotel() {
     const photo3 = useRef()
     const capacity = useRef()
     const cityId = useRef()
-    let newHotel = []
-    let [citiesSelect, setCitiesSelect] = useState([])
+
+    const dispatch = useDispatch()
+    const { cities } = useSelector(state => state.city)
+    const { createHotel } = hotelActions
+    const { getAllCities } = cityActions
 
     useEffect(() => {
-        axios.get(`${apiUrl}/api/cities`)
-            .then(res => setCitiesSelect(res.data.data))
-            .catch(err => console.log(err))
+
+        dispatch(getAllCities())
+        // eslint-disable-next-line
     }, [])
 
-
-    const enviarFormulario = () => {
-
-        if (name.current.value !== '' && photo1.current.value !== '' && photo2.current.value !== '' && photo3.current.value !== '' && capacity.current.value !== '' && cityId.current.value !== '') {
-            newHotel.push(
-                {
-                    name: name.current.value,
-                    photo: [photo1.current.value, photo2.current.value, photo3.current.value],
-                    capacity: Number(capacity.current.value),
-                    cityId: cityId.current.value,
-                    userId: '636d82c86529ebe93bbef91f'
-                }
-            )
-            axios.post(`${apiUrl}/api/hotels`, newHotel)
-            form.current.reset()
-            alert('Hotel creado con éxito')
-            console.log(newHotel)
-        } else {
-            alert('Todos los campos son obligatorios')
+    async function enviarFormulario(event) {
+        event.preventDefault()
+        let newHotel = {
+            name: name.current.value,
+            photo: [photo1.current.value, photo2.current.value, photo3.current.value],
+            capacity: capacity.current.value,
+            cityId: cityId.current.value,
+            userId: '636d82c86529ebe93bbef91f'
         }
+        try {
+            let res = await dispatch(createHotel(newHotel))
+            if (res.payload.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Hotel successfully created',
+                    showConfirmButton: true,
+                })
+                    .then(result => {
+                        if (result.isConfirmed) {
+                            window.location.href = `/detailsH/${res.payload.id}`
+                        }
+                    })
+                form.current.reset()
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    html: res.payload.messages.join(' <br> '),
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     return (
         <main className="w-100 flex column align-center p-3 gap-2 main-container-sign">
-            <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img'/>
+            <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img' />
             <div className="flex justify-center">
                 <form ref={form}>
                     <div className="cardForm flex column align-center justify-center container-fluid p-2">
@@ -65,7 +82,7 @@ export default function NewHotel() {
                                     <InputForm classN="signup-input" type="text" place="Capacity" id="capacity" refId={capacity} />
                                     <label className='title-select' for='cityId'>Select a city :</label>
                                     <select ref={cityId} className="signup-input select" id="cityId">
-                                        {citiesSelect.map(city => <option key={city._id} value={city._id}>{city.name}</option>)}
+                                        {cities.map(city => <option key={city._id} value={city._id}>{city.name}</option>)}
                                     </select>
                                 </div>
                                 <BotonEnviarForm fx={enviarFormulario} texto='Create Hotel' />
