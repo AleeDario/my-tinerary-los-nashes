@@ -49,17 +49,23 @@ export default function Navbar() {
                                     <CallToAction rute='/signup' classN='btn3' text='SIGN UP' />
                                 </>
                             )}
-                            {online && role === 'admin' && (
+                            {role === 'user' && (
+                                <>
+                                    <CallToAction rute='/myitineraries' classN='btn3' text='MY ITINERARY' />
+                                    <CallToAction rute='/myshows' classN='btn3' text='MY SHOWS' />
+                                </>
+                            )}
+                            {role === 'admin' && (
                                 <>
                                     <CallToAction rute='/newcity' classN='btn3' text='NEW CITY' />
                                     <CallToAction rute='/newhotel' classN='btn3' text='NEW HOTEL' />
                                     <CallToAction rute='/mycities' classN='btn3' text='MY CITIES' />
                                     <CallToAction rute='/myhotels' classN='btn3' text='MY HOTELS' />
-                                    <CallToAction rute='/myitineraries' classN='btn3' text='MY ITINERARY' />
-                                    <CallToAction rute='/myshows' classN='btn3' text='MY SHOWS' />
                                 </>
                             )}
-                            <CallToAction classN='btn3' text='LOG OUT' />
+                            {online && (
+                                <CallToAction classN='btn3' text='LOG OUT' />
+                            )}
                         </div>
                     )}
                 </div>
