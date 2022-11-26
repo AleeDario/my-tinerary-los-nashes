@@ -14,14 +14,16 @@ import MyCities from "./pages/MyCities";
 import MyHotels from "./pages/MyHotels"
 import MyItineraries from "./pages/MyItineraries";
 import MyShows from "./pages/MyShows";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import userActions from "./redux/actions/userActions";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
 
     const dispatch = useDispatch()
     const { reLogin } = userActions
+    const { online} = useSelector(state => state.user)
     const token = JSON.parse(localStorage.getItem("token"))
 
     useEffect(() => {
@@ -46,8 +48,10 @@ function App() {
                 <Route path="/newhotel" element={<NewHotel />} />
                 <Route path="/mycities" element={<MyCities />} />
                 <Route path="/myhotels" element={<MyHotels />} />
-                <Route path="/myitineraries" element={<MyItineraries />} />
-                <Route path="/myshows" element={<MyShows />} />
+                <Route element={<ProtectedRoute isAllowed={!!online} reDirect='/signin' />}>
+                    <Route path="/myitineraries" element={<MyItineraries />} />
+                    <Route path="/myshows" element={<MyShows />} />
+                </Route>
                 <Route path="/*" element={<NotFound />} />
             </Routes>
         </Layout>
