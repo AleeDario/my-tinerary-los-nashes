@@ -23,7 +23,7 @@ function App() {
 
     const dispatch = useDispatch()
     const { reLogin } = userActions
-    const { online } = useSelector(state => state.user)
+    const { online , role} = useSelector(state => state.user)
     const token = JSON.parse(localStorage.getItem("token"))
 
     useEffect(() => {
@@ -46,7 +46,7 @@ function App() {
                 <Route path="/detailsH/:id" element={<DetailsHotels />} />
                 <Route path="/newcity" element={<NewCity />} />
                 <Route path="/newhotel" element={<NewHotel />} />
-                <Route element={<ProtectedRoute isAllowed={!!online} reDirect='/signin' />}>
+                <Route element={<ProtectedRoute isAllowed={!!online && role === 'admin'} reDirect='/signin' />}>
                     <Route path="/mycities" element={<MyCities />} />
                     <Route path="/myhotels" element={<MyHotels />} />
                 </Route>
