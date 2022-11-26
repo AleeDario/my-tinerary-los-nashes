@@ -3,13 +3,17 @@ import { useState } from 'react'
 import ButtonNav from './ButtonNav'
 import CallToAction from './CallToAction'
 import { Link as Navlink } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import userActions from '../redux/actions/userActions'
+import Swal from 'sweetalert2'
 
 export default function Navbar() {
 
     let [mostrarOcultar, setMostrarOcultar] = useState(false)
     let [mostrarOcultar2, setMostrarOcultar2] = useState(false)
-    const { online, role } = useSelector(state => state.user)
+    const dispatch = useDispatch()
+    const { online, role, photo, name, token } = useSelector(state => state.user)
+    const { logout } = userActions
 
     let mostrarBoton = () => {
         setMostrarOcultar(!mostrarOcultar)
@@ -19,6 +23,28 @@ export default function Navbar() {
     let mostrarBoton2 = () => {
         setMostrarOcultar2(!mostrarOcultar2)
         setMostrarOcultar(false)
+    }
+
+    function singOut() {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, log out!'
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    dispatch(logout(token))
+                    Swal.fire(
+                        'Logged out!',
+                        'You have been logged out',
+                        'success'
+                    )
+                }
+            })
     }
 
     return (
@@ -40,7 +66,16 @@ export default function Navbar() {
                     )}
                 </div>
                 <div>
-                    <ButtonNav buton='User' fx={mostrarBoton2} />
+                    {!online ? (
+                        <ButtonNav buton='User' fx={mostrarBoton2} />
+                    ) : (
+                        <div className='flex column justify-center align-center gap-0-5'>
+                            <img src={photo} width='50' alt="userLoged" onClick={mostrarBoton2}/>
+                            <h5 className='text-white'>{name}</h5>
+                        </div>
+                    )
+
+                    }
                     {mostrarOcultar2 && (
                         <div>
                             {!online && (
@@ -49,11 +84,8 @@ export default function Navbar() {
                                     <CallToAction rute='/signup' classN='btn3' text='SIGN UP' />
                                 </>
                             )}
-                            {role === 'user' && (
-                                <>
-                                    <CallToAction rute='/myitineraries' classN='btn3' text='MY ITINERARY' />
-                                    <CallToAction rute='/myshows' classN='btn3' text='MY SHOWS' />
-                                </>
+                            {online && (
+                                    <CallToAction rute='/myprofile' classN='btn3' text='MY PROFILE' />
                             )}
                             {role === 'admin' && (
                                 <>
@@ -64,7 +96,12 @@ export default function Navbar() {
                                 </>
                             )}
                             {online && (
-                                <CallToAction classN='btn3' text='LOG OUT' />
+                                <>
+                                    <CallToAction rute='/myprofile' classN='btn3' text='MY PROFILE' />
+                                    <CallToAction rute='/myitineraries' classN='btn3' text='MY ITINERARY' />
+                                    <CallToAction rute='/myshows' classN='btn3' text='MY SHOWS' />
+                                    <CallToAction fx={singOut} classN='btn3' text='LOG OUT' />
+                                </>
                             )}
                         </div>
                     )}
