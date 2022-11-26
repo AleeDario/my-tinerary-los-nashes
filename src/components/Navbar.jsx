@@ -2,12 +2,14 @@ import React from 'react'
 import { useState } from 'react'
 import ButtonNav from './ButtonNav'
 import CallToAction from './CallToAction'
-import { Link as Navlink} from 'react-router-dom'
+import { Link as Navlink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export default function Navbar() {
 
     let [mostrarOcultar, setMostrarOcultar] = useState(false)
     let [mostrarOcultar2, setMostrarOcultar2] = useState(false)
+    const { online, role } = useSelector(state => state.user)
 
     let mostrarBoton = () => {
         setMostrarOcultar(!mostrarOcultar)
@@ -33,7 +35,7 @@ export default function Navbar() {
                         <div>
                             <CallToAction rute='/cities' classN='btn3' text='CITIES' />
                             <CallToAction rute='/hotels' classN='btn3' text='HOTELS' />
-                            
+
                         </div>
                     )}
                 </div>
@@ -41,14 +43,23 @@ export default function Navbar() {
                     <ButtonNav buton='User' fx={mostrarBoton2} />
                     {mostrarOcultar2 && (
                         <div>
-                            <CallToAction rute='/signin' classN='btn3' text='SIGN IN' />
-                            <CallToAction rute='/signup' classN='btn3' text='SIGN UP' />
-                            <CallToAction rute='/newcity' classN='btn3' text='NEW CITY' />
-                            <CallToAction rute='/newhotel' classN='btn3' text='NEW HOTEL' />
-                            <CallToAction rute='/mycities' classN='btn3' text='MY CITIES' />
-                            <CallToAction rute='/myhotels' classN='btn3' text='MY HOTELS' />
-                            <CallToAction rute='/myitineraries' classN='btn3' text='MY ITINERARY' />
-                            <CallToAction rute='/myshows' classN='btn3' text='MY SHOWS' />
+                            {!online && (
+                                <>
+                                    <CallToAction rute='/signin' classN='btn3' text='SIGN IN' />
+                                    <CallToAction rute='/signup' classN='btn3' text='SIGN UP' />
+                                </>
+                            )}
+                            {online && role === 'admin' && (
+                                <>
+                                    <CallToAction rute='/newcity' classN='btn3' text='NEW CITY' />
+                                    <CallToAction rute='/newhotel' classN='btn3' text='NEW HOTEL' />
+                                    <CallToAction rute='/mycities' classN='btn3' text='MY CITIES' />
+                                    <CallToAction rute='/myhotels' classN='btn3' text='MY HOTELS' />
+                                    <CallToAction rute='/myitineraries' classN='btn3' text='MY ITINERARY' />
+                                    <CallToAction rute='/myshows' classN='btn3' text='MY SHOWS' />
+                                </>
+                            )}
+                            <CallToAction classN='btn3' text='LOG OUT' />
                         </div>
                     )}
                 </div>
