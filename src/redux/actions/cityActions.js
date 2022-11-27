@@ -105,9 +105,36 @@ const getItineraries = createAsyncThunk("getItineraries", async (id) => {
     }
 })
 
-const updateItinerary = createAsyncThunk("updateItinerary", async (data) => {
+const createItinerary = createAsyncThunk("createItinerary", async (data) => {
+    let headers = { headers: { Authorization: `Bearer ${data.token}`}}
     try{
-        const res = await axios.put(`${apiUrl}/api/itineraries/${data.id}`, data.itinerary)
+        const res = await axios.post(`${apiUrl}/api/itineraries`, data.itinerary, headers)
+        if (res.data.id) {
+            return {
+                id: res.data.id,
+                success: true,
+                response: data.itinerary,
+            }
+        } else {
+            return {
+                success: false,
+                messages: res.data.message,
+                
+            }
+        }
+    }catch(error){
+        console.log(error)
+        return {
+            success: false,
+            response: error.response.data
+        }
+    }
+})
+
+const updateItinerary = createAsyncThunk("updateItinerary", async (data) => {
+    let headers = { headers: { Authorization: `Bearer ${data.token}`}}
+    try{
+        const res = await axios.put(`${apiUrl}/api/itineraries/${data.id}`, data.itinerary, headers)
         return res.data
     }catch(error){
         console.log(error)
@@ -117,9 +144,10 @@ const updateItinerary = createAsyncThunk("updateItinerary", async (data) => {
     }
 })
 
-const deleteItinerary = createAsyncThunk("deleteItinerary", async (id) => {
+const deleteItinerary = createAsyncThunk("deleteItinerary", async (data) => {
+    let headers = { headers: { Authorization: `Bearer ${data.token}`}}
     try{
-        const res = await axios.delete(`${apiUrl}/api/itineraries/${id}`)
+        const res = await axios.delete(`${apiUrl}/api/itineraries/${data.id}`, headers)
         return res.data
     }catch(error){
         console.log(error)
@@ -137,6 +165,7 @@ const cityActions = {
     deleteCity,
     updateCity,
     getItineraries,
+    createItinerary,
     updateItinerary,
     deleteItinerary
 }

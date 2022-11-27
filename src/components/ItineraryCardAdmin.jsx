@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch} from 'react-redux'
+import { useDispatch, useSelector} from 'react-redux'
 import Swal from 'sweetalert2'
 import cityActions from '../redux/actions/cityActions'
 
@@ -7,6 +7,8 @@ export default function ItineraryCardAdmin(props) {
     let { itineraries } = props
     const dispatch = useDispatch()
     const { deleteItinerary, updateItinerary } = cityActions
+    const { cities } = useSelector(state => state.city)
+    const { token } = useSelector(state => state.user)
 
     async function deleteAdmin() {
         try {
@@ -25,8 +27,11 @@ export default function ItineraryCardAdmin(props) {
                         'Your file has been deleted.',
                         'success'
                     )
-                    dispatch(deleteItinerary(itineraries._id))
-                    window.location.reload()
+                    let data = {
+                        id: itineraries._id,
+                        token
+                    }
+                    dispatch(deleteItinerary(data))
                 }
             })
 
@@ -36,19 +41,29 @@ export default function ItineraryCardAdmin(props) {
     }
 
     async function updateAdmin() {
+
+        let citySelect = cities.find(city => city._id === itineraries.cityId)
         try {
             const { value: formValues } = await Swal.fire({
                 title: `Update itinerary \n ${itineraries.name} `,
                 showCancelButton: true,
                 confirmButtonText: 'Update',
                 html:
-                    '<input placeHolder="Name" id="name" class="swal2-input">' +
-                    '<input placeHolder="Photo 1 Url" id="photo1" class="swal2-input">' +
-                    '<input placeHolder="Photo 2 Url" id="photo2" class="swal2-input">' +
-                    '<input placeHolder="Photo 3 Url" id="photo3" class="swal2-input">' +
-                    '<input placeHolder="Description" id="description" class="swal2-input">' +
-                    '<input placeHolder="Price" id="price" class="swal2-input">' +
-                    '<input placeHolder="Duration" id="duration" class="swal2-input">' ,
+                    `<input value='${itineraries.name}' id="name" class="swal2-input">` +
+                    `<input value='${itineraries.photo[0]}' id="photo1" class="swal2-input">` +
+                    `<input value='${itineraries.photo[1]}' id="photo2" class="swal2-input">` +
+                    `<input value='${itineraries.photo[2]}' id="photo3" class="swal2-input">` +
+                    `<input value='${itineraries.description}' id="description" class="swal2-input">` +
+                    `<input value='${itineraries.price}' id="price" class="swal2-input">` +
+                    `<input value='${itineraries.duration}' id="duration" class="swal2-input">` +
+                    `<select id='city' class="swal2-input"> 
+                    ${cities.map(city => {
+                        if(citySelect.name === city.name){
+                            return `<option selected value="${city._id}">${city.name}</option>`
+                        }else{
+                            return `<option value="${city._id}">${city.name}</option>`
+                        }})} 
+                    </select>`,
                 focusConfirm: false,
                 preConfirm: () => {
                     let name = document.getElementById('name').value
@@ -59,11 +74,14 @@ export default function ItineraryCardAdmin(props) {
                     let description = document.getElementById('description').value
                     let price = document.getElementById('price').value
                     let duration = document.getElementById('duration').value
+                    let city = document.getElementById('city').value
 
 
                     let data = {
                         id: itineraries._id,
+                        token,
                         itinerary: {
+                            cityId: city,
 
                         }
                     }
@@ -101,9 +119,7 @@ export default function ItineraryCardAdmin(props) {
                         data.itinerary.duration = duration
                     }
 
-
                     dispatch(updateItinerary(data))
-                    window.location.reload()
                 }
             })
 
@@ -120,6 +136,8 @@ export default function ItineraryCardAdmin(props) {
         return Math.floor(Math.random() * numero)
     }
 
+    let city = cities.find(city => city._id === itineraries.cityId)
+
     return (
         <div className="card-container bg-palette1 flex column justify-center" >
             <div className="img-card-container">
@@ -129,6 +147,7 @@ export default function ItineraryCardAdmin(props) {
             </div>
             <div className="text-card">
                 <h3>{itineraries.name}</h3>
+                <h4>City: {city.name}</h4>
                 <p>Price: {itineraries.price}</p>
                 <p>Duration: {itineraries.duration}</p>
             </div>
