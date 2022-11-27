@@ -66,13 +66,13 @@ export default function Navbar() {
                     )}
                 </div>
                 <div>
-                    {!online ? (
-                        <ButtonNav buton='User' fx={mostrarBoton2} />
-                    ) : (
+                    {online ? (
                         <div className='flex column justify-center align-center gap-0-5'>
-                            <img src={photo} width='50' alt="userLoged" onClick={mostrarBoton2}/>
+                            <img src={photo} width='50' alt="userLoged" onClick={mostrarBoton2} />
                             <h5 className='text-white'>{name}</h5>
                         </div>
+                    ) : (
+                        <ButtonNav buton='User' fx={mostrarBoton2} />
                     )
 
                     }
@@ -85,7 +85,7 @@ export default function Navbar() {
                                 </>
                             )}
                             {online && (
-                                    <CallToAction rute='/myprofile' classN='btn3' text='MY PROFILE' />
+                                <CallToAction rute='/myprofile' classN='btn3' text='MY PROFILE' />
                             )}
                             {role === 'admin' && (
                                 <>
@@ -97,7 +97,6 @@ export default function Navbar() {
                             )}
                             {online && (
                                 <>
-                                    <CallToAction rute='/myprofile' classN='btn3' text='MY PROFILE' />
                                     <CallToAction rute='/myitineraries' classN='btn3' text='MY ITINERARY' />
                                     <CallToAction rute='/myshows' classN='btn3' text='MY SHOWS' />
                                     <CallToAction fx={singOut} classN='btn3' text='LOG OUT' />

@@ -18,12 +18,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import userActions from "./redux/actions/userActions";
 import ProtectedRoute from "./components/ProtectedRoute";
+import MyProfile from "./pages/MyProfile";
 
 function App() {
 
     const dispatch = useDispatch()
     const { reLogin } = userActions
-    const { online , role} = useSelector(state => state.user)
+    const { online, role } = useSelector(state => state.user)
     const token = JSON.parse(localStorage.getItem("token"))
 
     useEffect(() => {
@@ -38,17 +39,24 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
-                <Route path="/signUp" element={<SignUp />} />
-                <Route path="/signin" element={<SignIn />} />
+                <Route element={<ProtectedRoute isAllowed={!online} reDirect='/home' />}>
+                    <Route path="/signUp" element={<SignUp />} />
+                    <Route path="/signin" element={<SignIn />} />
+                </Route>
                 <Route path="/cities" element={<Cities />} />
                 <Route path="/details/:id" element={<DetailsCity />} />
                 <Route path="/hotels" element={<Hotels />} />
                 <Route path="/detailsH/:id" element={<DetailsHotels />} />
-                <Route path="/newcity" element={<NewCity />} />
-                <Route path="/newhotel" element={<NewHotel />} />
+                {online && (
+                    <Route element={<ProtectedRoute isAllowed={!!online} reDirect='/signin' />}>
+                        <Route path="/myprofile" element={<MyProfile />} />
+                    </Route>
+                )}
                 <Route element={<ProtectedRoute isAllowed={!!online && role === 'admin'} reDirect='/signin' />}>
                     <Route path="/mycities" element={<MyCities />} />
                     <Route path="/myhotels" element={<MyHotels />} />
+                    <Route path="/newcity" element={<NewCity />} />
+                    <Route path="/newhotel" element={<NewHotel />} />
                 </Route>
                 <Route element={<ProtectedRoute isAllowed={!!online} reDirect='/signin' />}>
                     <Route path="/myitineraries" element={<MyItineraries />} />

@@ -27,7 +27,7 @@ const reLogin = createAsyncThunk('reLogin', async (token) => {
         return {
             success: true,
             response: {
-                user: user.data.response,
+                user: user.data.response.user,
                 token
             }
         }
@@ -56,10 +56,44 @@ const logout = createAsyncThunk('logout', async (token) => {
     }
 })
 
+const getUser = createAsyncThunk('getUser', async (id) => {
+    try {
+        let user = await axios.get(`${apiUrl}/api/auth/me/${id}`)
+        return {
+            success: true,
+            response: user.data.data
+        }
+    } catch (error) {
+        return {
+            success: false,
+            response: error.response.data.message
+        }
+    }
+})
+
+const updateUser = createAsyncThunk('updateUser', async (info) => {
+    try {
+        let user = await axios.patch(`${apiUrl}/api/auth/me/${info.id}`, info.user)
+        console.log(user)
+        return {
+            success: true,
+            response: user.data.data
+        }
+    } catch (error) {
+        return {
+            success: false,
+            response: error.response.data.message
+        }
+    }
+})
+
+
 const userActions = {
     login,
     reLogin,
-    logout
+    logout,
+    getUser,
+    updateUser
 }
 
 export default userActions
