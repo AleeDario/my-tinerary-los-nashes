@@ -22,6 +22,7 @@ export default function Hotels() {
         } else {
             dispatch(getAllHotels())
         }
+        // eslint-disable-next-line
     }, [])
 
     function filterCheckCards() {
