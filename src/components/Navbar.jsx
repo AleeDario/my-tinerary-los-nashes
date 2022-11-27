@@ -99,7 +99,6 @@ export default function Navbar() {
                                 <>
                                     <CallToAction rute='/myitineraries' classN='btn3' text='MY ITINERARY' />
                                     <CallToAction rute='/myshows' classN='btn3' text='MY SHOWS' />
-                                    <CallToAction rute='/newitinerary' classN='btn3' text='NEW ITINERARY' />
                                     <CallToAction fx={singOut} classN='btn3' text='LOG OUT' />
                                 </>
                             )}

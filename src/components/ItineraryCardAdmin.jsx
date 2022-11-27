@@ -120,6 +120,8 @@ export default function ItineraryCardAdmin(props) {
                     }
 
                     dispatch(updateItinerary(data))
+
+                    return `The itinerary ${name} has been updated successfully.`
                 }
             })
 

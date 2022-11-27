@@ -20,6 +20,7 @@ import userActions from "./redux/actions/userActions";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MyProfile from "./pages/MyProfile";
 import NewItinerary from "./pages/NewItinerary";
+import NewShow from "./pages/NewShow";
 
 function App() {
 
@@ -63,6 +64,7 @@ function App() {
                     <Route path="/myitineraries" element={<MyItineraries />} />
                     <Route path="/myshows" element={<MyShows />} />
                     <Route path="/newitinerary" element={<NewItinerary />} />
+                    <Route path="/newshow" element={<NewShow />} />
                 </Route>
                 <Route path="/*" element={<NotFound />} />
             </Routes>
