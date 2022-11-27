@@ -26,7 +26,6 @@ export default function HotelCardAdmin(props) {
                         'success'
                     )
                     dispatch(deleteHotel(hotel._id))
-                    window.location.reload()
                 }
             })
 
@@ -91,7 +90,6 @@ export default function HotelCardAdmin(props) {
                     }
 
                     dispatch(updateHotel(data))
-                    window.location.reload()
                 }
             })
 

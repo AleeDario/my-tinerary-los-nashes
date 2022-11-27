@@ -26,7 +26,6 @@ export default function ShowCardAdmin(props) {
                         'success'
                     )
                     dispatch(deleteShow(shows._id))
-                    window.location.reload()
                 }
             })
 
@@ -81,7 +80,6 @@ export default function ShowCardAdmin(props) {
 
 
                     dispatch(updateShow(data))
-                    window.location.reload()
                 }
             })
 

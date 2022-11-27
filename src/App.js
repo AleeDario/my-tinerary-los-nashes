@@ -19,6 +19,7 @@ import { useEffect } from "react";
 import userActions from "./redux/actions/userActions";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MyProfile from "./pages/MyProfile";
+import NewItinerary from "./pages/NewItinerary";
 
 function App() {
 
@@ -61,6 +62,7 @@ function App() {
                 <Route element={<ProtectedRoute isAllowed={!!online} reDirect='/signin' />}>
                     <Route path="/myitineraries" element={<MyItineraries />} />
                     <Route path="/myshows" element={<MyShows />} />
+                    <Route path="/newitinerary" element={<NewItinerary />} />
                 </Route>
                 <Route path="/*" element={<NotFound />} />
             </Routes>

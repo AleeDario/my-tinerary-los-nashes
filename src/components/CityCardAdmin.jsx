@@ -26,7 +26,6 @@ export default function CityCardAdmin(props) {
                         'success'
                     )
                     dispatch(deleteCity(city._id))
-                    window.location.reload()
                 }
             })
 
@@ -76,7 +75,6 @@ export default function CityCardAdmin(props) {
                     }
 
                     dispatch(updateCity(data))
-                    window.location.reload()
                 }
             })
 
