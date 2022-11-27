@@ -1,59 +1,57 @@
 import { useRef } from 'react'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import cityActions from '../redux/actions/cityActions'
+import hotelActions from '../redux/actions/hotelActions'
 import Swal from 'sweetalert2'
 import BotonEnviarForm from '../components/BotonEnviarForm'
 import InputForm from '../components/InputForm'
 import { useNavigate } from 'react-router-dom'
 
-export default function NewItinerary() {
+export default function NewShow() {
 
     const dispatch = useDispatch()
-    const { createItinerary } = cityActions
-    const { cities } = useSelector(state => state.city)
+    const { createShow } = hotelActions
+    const { hotels } = useSelector(state => state.hotel)
     const { token, id } = useSelector(state => state.user)
     const navigate = useNavigate()
 
     const form = useRef()
     const name = useRef()
-    const photo1 = useRef()
-    const photo2 = useRef()
-    const photo3 = useRef()
+    const photo = useRef()
     const description = useRef()
-    const duration = useRef()
+    const date = useRef()
     const price = useRef()
-    const cityId = useRef()
+    const hotelId = useRef()
 
     async function enviarForm(e) {
         e.preventDefault()
         let datos = {
             token,
-            itinerary: {
+           show: {
                 name: name.current.value,
-                photo: [photo1.current.value, photo2.current.value, photo3.current.value],
+                photo: photo.current.value,
                 description: description.current.value,
-                duration: duration.current.value,
                 price: price.current.value,
-                cityId: cityId.current.value,
+                date: date.current.value,
+                hotelId: hotelId.current.value,
                 userId: id
             }
         }
         try {
-            let res = await dispatch(createItinerary(datos))
+            let res = await dispatch(createShow(datos))
             console.log(res)
             if (res.payload.success) {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Itinerary successfully created',
+                    title: 'Show successfully created',
                     showConfirmButton: true,
                     showCancelButton: true,
-                    confirmButtonText: 'See my itineraries',
-                    cancelButtonText: 'Add another itinerary'
+                    confirmButtonText: 'See my shows',
+                    cancelButtonText: 'Add another show'
                 })
                     .then(result => {
                         if (result.isConfirmed) {
-                            navigate(`/myItineraries`)
+                            navigate(`/myshows`)
                         }
                     })
                 form.current.reset()
@@ -75,24 +73,22 @@ export default function NewItinerary() {
             <div className="flex justify-center">
                 <form ref={form}>
                     <div className="cardForm flex column align-center justify-center container-fluid p-2">
-                        <h1 className="text-palette2 titleForm">New Itinerary</h1>
+                        <h1 className="text-palette2 titleForm">New Show</h1>
                         <div className='flex cardForm-children container-fluid'>
-                            <img width='450px' className="flex align-center img-fluid" src="../img/newItinerary.png" alt="drawing" />
+                            <img width='450px' className="flex align-center img-fluid" src="../img/newShow.png" alt="drawing" />
                             <div className='flex column gap-1 justify-center align-center container-fluid'>
                                 <div className="input-wrapper flex column gap-1">
                                     <InputForm classN="signup-input" type="text" place="Name" id="name" refId={name} />
-                                    <InputForm classN="signup-input" type="text" place='Url Photo 1' id="Photo1" refId={photo1} />
-                                    <InputForm classN="signup-input" type="text" place='Url Photo 2' id="Photo2" refId={photo2} />
-                                    <InputForm classN="signup-input" type="text" place='Url Photo 3' id="Photo3" refId={photo3} />
                                     <InputForm classN="signup-input" type="text" place="Description" id="description" refId={description} />
+                                    <InputForm classN="signup-input" type="text" place='Url Photo' id="Photo" refId={photo} />
                                     <InputForm classN="signup-input" type="number" place="Price" id="price" refId={price} />
-                                    <InputForm classN="signup-input" type="number" place="Duration" id="duration" refId={duration} />
-                                    <label className='title-select' htmlFor='cityId'>Select a city :</label>
-                                    <select ref={cityId} className="signup-input select" id="cityId">
-                                        {cities.map(city => <option key={city._id} value={city._id}>{city.name}</option>)}
+                                    <InputForm classN="signup-input" type="date" place="Date" id="date" refId={date} />
+                                    <label className='title-select' htmlFor='hotelId'>Select a Hotel :</label>
+                                    <select ref={hotelId} className="signup-input select" id="hotelId">
+                                        {hotels.map(hotel => <option key={hotel._id} value={hotel._id}>{hotel.name}</option>)}
                                     </select>
                                 </div>
-                                <BotonEnviarForm fx={enviarForm} texto='Create Itinerary' />
+                                <BotonEnviarForm fx={enviarForm} texto='Create Show' />
                             </div>
                         </div>
                     </div>

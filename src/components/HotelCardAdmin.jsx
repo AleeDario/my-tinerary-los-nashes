@@ -90,6 +90,8 @@ export default function HotelCardAdmin(props) {
                     }
 
                     dispatch(updateHotel(data))
+
+                    return `The hotel ${name} has been updated successfully.`
                 }
             })
 

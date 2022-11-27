@@ -2132,6 +2132,16 @@ button:active {
     }
 }
 
+.add:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.labelForm{
+    color: #1c232c;
+}
+
 @media screen and (max-width: 800px) {
 
     .cardForm-children {

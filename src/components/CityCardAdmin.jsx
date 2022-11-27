@@ -75,6 +75,8 @@ export default function CityCardAdmin(props) {
                     }
 
                     dispatch(updateCity(data))
+
+                    return `The city ${name} has been updated successfully.`
                 }
             })
 
