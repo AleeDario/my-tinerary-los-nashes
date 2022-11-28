@@ -3,10 +3,10 @@ import axios from "axios";
 import apiUrl from '../../api/url'
 
 const getAllCities = createAsyncThunk("getAllCities", async () => {
-    try{
+    try {
         const res = await axios.get(`${apiUrl}/api/cities`)
         return res.data.data
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return {
             payload: 'Error'
@@ -15,7 +15,7 @@ const getAllCities = createAsyncThunk("getAllCities", async () => {
 })
 
 const getCitiesFiltred = createAsyncThunk("getCitiesFiltred", async (data) => {
-    try{
+    try {
         const res = await axios.get(`${apiUrl}/api/cities?${data.checks}&name=${data.name}`)
         const dataReduce = {
             res: res.data.data,
@@ -24,7 +24,7 @@ const getCitiesFiltred = createAsyncThunk("getCitiesFiltred", async (data) => {
             checked: data.checked,
         }
         return dataReduce
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return {
             payload: 'Error'
@@ -32,24 +32,25 @@ const getCitiesFiltred = createAsyncThunk("getCitiesFiltred", async (data) => {
     }
 })
 
-const createCity = createAsyncThunk("createCity", async (newCity) => {
-    try{
-        const res = await axios.post(`${apiUrl}/api/cities`, newCity)
+const createCity = createAsyncThunk("createCity", async (datos) => {
+    let headers = { headers: { Authorization: `Bearer ${datos.token}` } }
+    try {
+        const res = await axios.post(`${apiUrl}/api/cities`, datos.city , headers)
 
         if (res.data.id) {
             return {
                 id: res.data.id,
                 success: true,
-                response: newCity,
+                response: datos.city,
             }
         } else {
             return {
                 success: false,
                 messages: res.data.message,
-                
+
             }
         }
-    }catch(error){
+    } catch (error) {
         return {
             success: false,
             response: 'Ocurrio un error'
@@ -58,10 +59,10 @@ const createCity = createAsyncThunk("createCity", async (newCity) => {
 })
 
 const getCitiesAdmin = createAsyncThunk("getCitiesAdmin", async (id) => {
-    try{
+    try {
         const res = await axios.get(`${apiUrl}/api/cities?userId=${id}`)
         return res.data.data
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return {
             payload: 'Error'
@@ -69,11 +70,12 @@ const getCitiesAdmin = createAsyncThunk("getCitiesAdmin", async (id) => {
     }
 })
 
-const deleteCity = createAsyncThunk("deleteCity", async (id) => {
-    try{
-        const res = await axios.delete(`${apiUrl}/api/cities/${id}`)
+const deleteCity = createAsyncThunk("deleteCity", async (data) => {
+    let headers = { headers: { Authorization: `Bearer ${data.token}` } }
+    try {
+        const res = await axios.delete(`${apiUrl}/api/cities/${data.id}`, headers)
         return res.data
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return {
             payload: 'Error'
@@ -82,10 +84,11 @@ const deleteCity = createAsyncThunk("deleteCity", async (id) => {
 })
 
 const updateCity = createAsyncThunk("updateCity", async (data) => {
-    try{
-        const res = await axios.put(`${apiUrl}/api/cities/${data.id}`, data.citie)
+    let headers = { headers: { Authorization: `Bearer ${data.token}` } }
+    try {
+        const res = await axios.put(`${apiUrl}/api/cities/${data.id}`, data.citie, headers)
         return res.data
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return {
             payload: 'Error'
@@ -94,22 +97,49 @@ const updateCity = createAsyncThunk("updateCity", async (data) => {
 })
 
 const getItineraries = createAsyncThunk("getItineraries", async (id) => {
-    try{
+    try {
         const res = await axios.get(`${apiUrl}/api/itineraries?userId=${id}`)
         return res.data.data
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return {
             payload: 'Error'
+        }
+    }
+})
+
+const createItinerary = createAsyncThunk("createItinerary", async (data) => {
+    let headers = { headers: { Authorization: `Bearer ${data.token}` } }
+    try {
+        const res = await axios.post(`${apiUrl}/api/itineraries`, data.itinerary, headers)
+        if (res.data.id) {
+            return {
+                id: res.data.id,
+                success: true,
+                response: data.itinerary,
+            }
+        } else {
+            return {
+                success: false,
+                messages: res.data.message,
+
+            }
+        }
+    } catch (error) {
+        console.log(error)
+        return {
+            success: false,
+            response: error.response.data
         }
     }
 })
 
 const updateItinerary = createAsyncThunk("updateItinerary", async (data) => {
-    try{
-        const res = await axios.put(`${apiUrl}/api/itineraries/${data.id}`, data.itinerary)
+    let headers = { headers: { Authorization: `Bearer ${data.token}` } }
+    try {
+        const res = await axios.put(`${apiUrl}/api/itineraries/${data.id}`, data.itinerary, headers)
         return res.data
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return {
             payload: 'Error'
@@ -117,11 +147,12 @@ const updateItinerary = createAsyncThunk("updateItinerary", async (data) => {
     }
 })
 
-const deleteItinerary = createAsyncThunk("deleteItinerary", async (id) => {
-    try{
-        const res = await axios.delete(`${apiUrl}/api/itineraries/${id}`)
+const deleteItinerary = createAsyncThunk("deleteItinerary", async (data) => {
+    let headers = { headers: { Authorization: `Bearer ${data.token}` } }
+    try {
+        const res = await axios.delete(`${apiUrl}/api/itineraries/${data.id}`, headers)
         return res.data
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return {
             payload: 'Error'
@@ -137,6 +168,7 @@ const cityActions = {
     deleteCity,
     updateCity,
     getItineraries,
+    createItinerary,
     updateItinerary,
     deleteItinerary
 }

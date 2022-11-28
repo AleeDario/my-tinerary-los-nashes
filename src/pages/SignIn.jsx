@@ -4,36 +4,60 @@ import BotonRegistroGoogle from '../components/BotonRegistroGoogle'
 import InputForm from '../components/InputForm'
 import BotonEnviarForm from '../components/BotonEnviarForm'
 import { Link as Navlink } from 'react-router-dom'
+import Swal from 'sweetalert2'
+import { useDispatch } from 'react-redux'
+import userActions from '../redux/actions/userActions'
+import { useNavigate } from 'react-router-dom'
+
 
 export default function SignIn() {
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const { login } = userActions
 
     const form = useRef()
     const email = useRef()
     const password = useRef()
 
-    let userLoged = []
+    async function enviarFormulario(event) {
+        event.preventDefault()
 
-    const enviarFormulario = () => {
-
-        if (email.current.value !== '' && password.current.value !== '') {
-            userLoged.push(
-                {
-                    email: email.current.value,
-                    password: password.current.value,
-                }
-            )
-            form.current.reset()
-            alert('Usuario Logeado con éxito')
-        } else {
-            alert('Todos los campos son obligatorios')
+        let user = {
+            email: email.current.value,
+            password: password.current.value,
         }
 
-        localStorage.setItem('userLoged', JSON.stringify(userLoged))
+        try {
+            let response = await dispatch(login(user))
+            if (response.payload.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: response.payload.res.message,
+                    showConfirmButton: true,
+                })
+                    .then(result => {
+                        if (result.isConfirmed) {
+                            navigate('/')
+                        }
+                    })
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: response.payload.response,
+                    showConfirmButton: true,
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     return (
         <main className="w-100 flex column align-center p-3 gap-2 main-container-signin">
-            <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img'/>
+            <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img' />
             <h1 className="text-palette2">Sign In</h1>
             <div className="flex justify-center">
                 <form ref={form}>

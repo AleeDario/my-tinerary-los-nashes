@@ -1,7 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
 import hotelActions from "../actions/hotelActions";
 
-const { getAllHotels , getHotelsFiltered, createHotel, getHotelsAdmin, deleteHotel, updateHotel, getShows, updateShow, deleteShow } = hotelActions;
+const { getAllHotels , getHotelsFiltered, createHotel, getHotelsAdmin, deleteHotel, updateHotel, getShows, createShow, updateShow, deleteShow } = hotelActions;
 
 const initialState = {
     hotels: [],
@@ -22,24 +22,32 @@ const hotelReducer = createReducer(initialState,
             })
             .addCase(createHotel.fulfilled,(state, action) => {
                 if (action.payload.success) {
-                    state.hotels.push(action.payload)
+                    return { ...state, hotels: [...state.hotels, action.payload.response]};
                 }
             })
             .addCase(getHotelsAdmin.fulfilled, (state, action) => {
                 return { ...state, hotelsAdmin: action.payload};
             })
             .addCase(deleteHotel.fulfilled, (state, action) => {
-                let hotel = state.hotelsAdmin.filter(hotel => hotel.id !== action.payload.data._id)
-                return { ...state, hotelsAdmin: hotel};
+                let hotel = state.hotelsAdmin.filter(hotel => hotel._id !== action.payload.data._id)
+                return { ...state, hotelsAdmin: hotel, hotels: hotel};
             })
             .addCase(updateHotel.fulfilled, (state, action) => {
-                return { ...state};
+                let hotel = state.hotelsAdmin.filter(hotel => hotel._id !== action.payload.data._id)
+                let hotels = state.hotels.filter(hotel => hotel._id !== action.payload.data._id)
+                return { ...state, hotelsAdmin: [...hotel, action.payload.data], hotels: [...hotels, action.payload.data]};
             })
             .addCase(getShows.fulfilled, (state, action) => {
                 return { ...state, shows: action.payload};
             })
+            .addCase(createShow.fulfilled, (state, action) => {
+                if (action.payload.success) {
+                    return { ...state, shows: [...state.shows, action.payload.response]};
+                }
+            })
             .addCase(updateShow.fulfilled, (state, action) => {
-                return { ...state};
+                let show = state.shows.filter(show => show._id !== action.payload.data._id)
+                return { ...state, shows: [...show, action.payload.data]};
             })
             .addCase(deleteShow.fulfilled, (state, action) => {
                 let show = state.shows.filter(show => show._id !== action.payload.data._id)

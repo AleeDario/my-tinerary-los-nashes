@@ -1,12 +1,15 @@
 import React from 'react'
-import { useDispatch} from 'react-redux'
+import { useDispatch, useSelector} from 'react-redux'
 import Swal from 'sweetalert2'
 import hotelActions from '../redux/actions/hotelActions'
+
 
 export default function HotelCardAdmin(props) {
     let { hotel } = props
     const dispatch = useDispatch()
+    const { token } = useSelector(state => state.user)
     const { deleteHotel, updateHotel } = hotelActions
+    const { cities } = useSelector(state => state.city)
 
     async function deleteAdmin() {
         try {
@@ -25,8 +28,11 @@ export default function HotelCardAdmin(props) {
                         'Your file has been deleted.',
                         'success'
                     )
-                    dispatch(deleteHotel(hotel._id))
-                    window.location.reload()
+                    let data = {
+                        id: hotel._id,
+                        token
+                    }
+                    dispatch(deleteHotel(data))
                 }
             })
 
@@ -34,6 +40,8 @@ export default function HotelCardAdmin(props) {
             console.log(error)
         }
     }
+
+    let citySelect = cities.find(city => city._id === hotel.cityId)
 
     async function updateAdmin() {
         try {
@@ -46,7 +54,15 @@ export default function HotelCardAdmin(props) {
                     '<input placeHolder="Photo 1 Url" id="photo1" class="swal2-input">' +
                     '<input placeHolder="Photo 2 Url" id="photo2" class="swal2-input">' +
                     '<input placeHolder="Photo 3 Url" id="photo3" class="swal2-input">' +
-                    '<input placeHolder="Capacity" id="capacity" class="swal2-input">' ,
+                    '<input placeHolder="Capacity" id="capacity" class="swal2-input">' +
+                    `<select id='city' class="swal2-input"> 
+                    ${cities.map(city => {
+                        if(citySelect._id === city._id){
+                            return `<option selected value="${city._id}">${city.name}</option>`
+                        }else{
+                            return `<option value="${city._id}">${city.name}</option>`
+                        }})} 
+                    </select>`,
                 focusConfirm: false,
                 preConfirm: () => {
                     let name = document.getElementById('name').value
@@ -55,10 +71,13 @@ export default function HotelCardAdmin(props) {
                     let photo3 = document.getElementById('photo3').value
                     let photo = []
                     let capacity = document.getElementById('capacity').value
+                    let city = document.getElementById('city').value
 
                     let data = {
                         id: hotel._id,
+                        token,
                         hotels: {
+                            cityId: city,
 
                         }
                     }
@@ -91,7 +110,8 @@ export default function HotelCardAdmin(props) {
                     }
 
                     dispatch(updateHotel(data))
-                    window.location.reload()
+
+                    return `The hotel ${name} has been updated successfully.`
                 }
             })
 
@@ -117,6 +137,7 @@ export default function HotelCardAdmin(props) {
             </div>
             <div className="text-card">
                 <h3>{hotel.name}</h3>
+                <h4>City: {citySelect.name}</h4>
                 <p>Capacity: {hotel.capacity}</p>
             </div>
             <div className='flex container-fluid align-center justify-around m-b-2'>

@@ -2,15 +2,18 @@ import React from 'react'
 import { useRef } from 'react'
 import BotonEnviarForm from '../components/BotonEnviarForm'
 import InputForm from '../components/InputForm'
-import { useDispatch} from 'react-redux'
+import { useDispatch, useSelector} from 'react-redux'
 import cityActions from '../redux/actions/cityActions'
 import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
 
 
 export default function NewCity() {
 
     const dispatch = useDispatch()
     const { createCity} = cityActions
+    const { id, token } = useSelector(state => state.user)
+    const navigate = useNavigate()
 
     const form = useRef()
     const name = useRef()
@@ -19,20 +22,21 @@ export default function NewCity() {
     const population = useRef()
 
     async function enviarFormulario(event) {
-        let newCity;
         event.preventDefault()
 
-        newCity = {
-            name: name.current.value,
-            continent: continent.current.value,
-            photo: photo.current.value,
-            population: population.current.value,
-            userId: '636d82c86529ebe93bbef91f',
+        let datos = {
+            token,
+            city:{
+                name: name.current.value,
+                continent: continent.current.value,
+                photo: photo.current.value,
+                population: population.current.value,
+                userId: id,
+            }
         }
 
         try {
-            let res = await dispatch(createCity(newCity))
-            console.log(res.payload)
+            let res = await dispatch(createCity(datos))
             if (res.payload.success) {
                 Swal.fire({
                     icon: 'success',
@@ -41,7 +45,7 @@ export default function NewCity() {
                 })
                 .then(result => {
                     if(result.isConfirmed){
-                        window.location.href = `/details/${res.payload.id}`
+                        navigate(`/details/${res.payload.id}`)
                     }
                 })  
                 form.current.reset()    
@@ -71,7 +75,7 @@ export default function NewCity() {
                                     <InputForm classN="signup-input" type="text" place="Name" id="name" refId={name} />
                                     <InputForm classN="signup-input" type="text" place="Continent" id="continent" refId={continent} />
                                     <InputForm classN="signup-input" type="text" place='Url Photo' id="photo" refId={photo} />
-                                    <InputForm classN="signup-input" type="text" place="Population" id="population" refId={population} />
+                                    <InputForm classN="signup-input" type="number" place="Population" id="population" refId={population} />
                                 </div>
                                 <BotonEnviarForm fx={enviarFormulario} texto='Create City' />
                             </div>

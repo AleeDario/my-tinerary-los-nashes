@@ -7,7 +7,7 @@
 
 
 body {
-    background-color: rgba(151,201,212,255);
+    background-color: rgba(151, 201, 212, 255);
 }
 
 /* Display flex */
@@ -1243,7 +1243,8 @@ body {
     padding-right: 100px;
 }
 
-.btn2, .btn3 {
+.btn2,
+.btn3 {
     background-color: transparent;
     color: white;
     padding: 1em;
@@ -1256,7 +1257,7 @@ body {
     transition: all 0.2s;
 }
 
-.btn3:hover{
+.btn3:hover {
     background-color: rgba(0, 0, 0, 0.8);
     transform: scale(1.1);
 }
@@ -1300,7 +1301,7 @@ nav {
     text-shadow: -3px 3px 2px rgba(0, 0, 0, 1);
 }
 
-.caorusel{
+.caorusel {
     padding: 2em 6em 2em 6em;
 }
 
@@ -1350,6 +1351,30 @@ nav {
 
 .text-orange {
     color: #EE6C4D;
+}
+
+.shadow__btnLogout {
+    padding: 10px 20px;
+    border: none;
+    font-size: 30px;
+    color: #fff;
+    border-radius: 7px;
+    letter-spacing: 4px;
+    font-weight: 700;
+    transition: 0.5s;
+    transition-property: box-shadow;
+}
+
+.shadow__btnLogout {
+    background: #e0370d;
+    box-shadow: 0 0 25px #e0370d;
+}
+
+.shadow__btnLogout:hover {
+    box-shadow: 0 0 5px #e0370d,
+        0 0 25px #e0370d,
+        0 0 50px #e0370d,
+        0 0 100px #e0370d;
 }
 
 /* FOOTER */
@@ -1572,7 +1597,8 @@ nav {
 
 /* _____________________________________________________ */
 /* Form inputs */
-.input-wrapper input, .input-wrapper select {
+.input-wrapper input,
+.input-wrapper select {
     background-color: #eee;
     border: none;
     padding: 1rem;
@@ -1584,17 +1610,18 @@ nav {
     width: 100%;
 }
 
-.input-wrapper input:focus, .input-wrapper select:focus {
+.input-wrapper input:focus,
+.input-wrapper select:focus {
     outline-color: lightcoral;
 }
 
-.title-select{
+.title-select {
     color: lightcoral;
     font-weight: bold;
     font-size: 1.2rem;
 }
 
-.imgFondo{
+.imgFondo {
     position: fixed;
     top: 0;
     left: 0;
@@ -1679,10 +1706,10 @@ nav {
     gap: 1em;
     border-radius: 30px;
     background: #e0e0e0;
-    box-shadow: 10px 11px 19px 0px rgba(0,0,0,.8);
+    box-shadow: 10px 11px 19px 0px rgba(0, 0, 0, .8);
 }
 
-.cardForm{
+.cardForm {
     width: 100%;
     height: auto;
     display: flex;
@@ -1691,7 +1718,7 @@ nav {
     border-top: solid #EE6C4D;
     border-bottom: solid #EE6C4D;
     background: #e0e0e0;
-    box-shadow: 10px 11px 19px 0px rgba(0,0,0,.8);
+    box-shadow: 10px 11px 19px 0px rgba(0, 0, 0, .8);
 }
 
 .cardCity {
@@ -1703,7 +1730,7 @@ nav {
     gap: 1em;
     border-radius: 30px;
     background: #e0e0e0;
-    box-shadow: 10px 11px 19px 0px rgba(0,0,0,.8);
+    box-shadow: 10px 11px 19px 0px rgba(0, 0, 0, .8);
 }
 
 .justify-evenly {
@@ -1970,7 +1997,7 @@ button:active {
 
 /* Details */
 
-.card-detail-cities{
+.card-detail-cities {
     margin-top: 15em;
     width: 100%;
     height: 30em;
@@ -1978,43 +2005,59 @@ button:active {
 
 .img-card-detail {
     border-radius: 1em 0 0 1em;
-  }
-  
-  .text-card-detail {
+}
+
+.text-card-detail {
     text-align: center;
     border-radius: 0 1em 1em 0;
-  }
-  
-  .shadow.box{
-    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-  }
+}
 
-  .titleForm{
-    text-shadow: 2px 1px 2px rgba(0,0,0,0.7);
-  }
+.shadow.box {
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
 
+.titleForm {
+    text-shadow: 2px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.btn-prof {
+    font-size: 1em;
+    width: 200px;
+}
+
+.textPerfil {
+    font-size: calc(1em + 1vw)
+}
+
+.textEmail {
+    word-break: break-all;
+}
 
 /* MEDIA QUERIES */
 
 @media screen and (max-width: 990px) {
 
-    .botonEvent{
+    .cardFormPerfil {
+        flex-direction: column;
+    }
+
+    .botonEvent {
         width: 10%;
     }
 
-    .card-detail-cities{
+    .card-detail-cities {
         width: 80%;
         margin-top: 20em;
         flex-direction: column;
         height: 50em;
     }
 
-    .cont-event{
+    .cont-event {
         margin-top: 0;
         font-size: .7em;
     }
 
-    .contenedorGral{
+    .contenedorGral {
         margin-bottom: 10em;
     }
 
@@ -2022,7 +2065,7 @@ button:active {
         border-radius: 1em 1em 0 0;
     }
 
-    .text-card-detail{
+    .text-card-detail {
         border-radius: 0 0 1em 1em;
     }
 
@@ -2089,13 +2132,28 @@ button:active {
     }
 }
 
+.add:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.img-detail{
+    width: 30em;
+    height: 80%;
+}
+
+.labelForm{
+    color: #1c232c;
+}
+
 @media screen and (max-width: 800px) {
 
-    .cardForm-children{
+    .cardForm-children {
         flex-direction: column;
     }
 
-    .cardForm{
+    .cardForm {
         width: 80%;
     }
 
@@ -2103,11 +2161,11 @@ button:active {
 
 @media screen and (max-width: 477px) {
 
-    .card-detail-cities{
+    .card-detail-cities {
         width: 100%;
     }
 
-    .cont-event-children{
+    .cont-event-children {
         width: 90%;
     }
 

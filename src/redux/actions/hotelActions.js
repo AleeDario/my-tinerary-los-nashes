@@ -4,10 +4,10 @@ import apiUrl from '../../api/url'
 
 
 const getAllHotels = createAsyncThunk("getAllHotels", async () => {
-    try{
+    try {
         const res = await axios.get(`${apiUrl}/api/hotels`)
         return res.data.response
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return {
             payload: 'Error'
@@ -16,7 +16,7 @@ const getAllHotels = createAsyncThunk("getAllHotels", async () => {
 })
 
 const getHotelsFiltered = createAsyncThunk("getHotelsFiltered", async (data) => {
-    try{
+    try {
         const res = await axios.get(`${apiUrl}/api/hotels?name=${data.name}&order=${data.order}`)
         const dataReduce = {
             res: res.data.response,
@@ -24,7 +24,7 @@ const getHotelsFiltered = createAsyncThunk("getHotelsFiltered", async (data) => 
             order: data.order
         }
         return dataReduce
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return {
             payload: 'Error'
@@ -32,24 +32,25 @@ const getHotelsFiltered = createAsyncThunk("getHotelsFiltered", async (data) => 
     }
 })
 
-const createHotel = createAsyncThunk("createHotel", async (newHotel) => {
-    try{
-        const res = await axios.post(`${apiUrl}/api/hotels`, newHotel)
+const createHotel = createAsyncThunk("createHotel", async (data) => {
+    let headers = { headers: { Authorization: `Bearer ${data.token}` } }
+    try {
+        const res = await axios.post(`${apiUrl}/api/hotels`, data.hotel, headers)
 
         if (res.data.id) {
             return {
                 id: res.data.id,
                 success: true,
-                response: newHotel,
+                response: data.hotel,
             }
         } else {
             return {
                 success: false,
                 messages: res.data.message,
-                
+
             }
         }
-    }catch(error){
+    } catch (error) {
         return {
             success: false,
             response: 'Something went wrong'
@@ -58,10 +59,10 @@ const createHotel = createAsyncThunk("createHotel", async (newHotel) => {
 })
 
 const getHotelsAdmin = createAsyncThunk("getHotelsAdmin", async (id) => {
-    try{
+    try {
         const res = await axios.get(`${apiUrl}/api/hotels?userId=${id}`)
         return res.data.response
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return {
             payload: 'Error'
@@ -69,11 +70,12 @@ const getHotelsAdmin = createAsyncThunk("getHotelsAdmin", async (id) => {
     }
 })
 
-const deleteHotel = createAsyncThunk("deleteHotel", async (id) => {
-    try{
-        const res = await axios.delete(`${apiUrl}/api/hotels/${id}`)
+const deleteHotel = createAsyncThunk("deleteHotel", async (data) => {
+    let headers = { headers: { Authorization: `Bearer ${data.token}` } }
+    try {
+        const res = await axios.delete(`${apiUrl}/api/hotels/${data.id}`, headers)
         return res.data
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return {
             payload: 'Error'
@@ -82,11 +84,12 @@ const deleteHotel = createAsyncThunk("deleteHotel", async (id) => {
 })
 
 const updateHotel = createAsyncThunk("updateHotel", async (data) => {
-    try{
-        const res = await axios.patch(`${apiUrl}/api/hotels/${data.id}`, data.hotels)
+    let headers = { headers: { Authorization: `Bearer ${data.token}` } }
+    try {
+        const res = await axios.patch(`${apiUrl}/api/hotels/${data.id}`, data.hotels, headers)
         console.log(res.data)
         return res.data
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return {
             payload: 'Error'
@@ -95,22 +98,49 @@ const updateHotel = createAsyncThunk("updateHotel", async (data) => {
 })
 
 const getShows = createAsyncThunk("getShows", async (id) => {
-    try{
+    try {
         const res = await axios.get(`${apiUrl}/api/shows?userId=${id}`)
         return res.data.data
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return {
             payload: 'Error'
+        }
+    }
+})
+
+const createShow = createAsyncThunk("createShow", async (data) => {
+    let headers = { headers: { Authorization: `Bearer ${data.token}` } }
+    try {
+        const res = await axios.post(`${apiUrl}/api/shows`, data.show, headers)
+
+        if (res.data.id) {
+            return {
+                id: res.data.id,
+                success: true,
+                response: data.show,
+            }
+        } else {
+            return {
+                success: false,
+                messages: res.data.message,
+
+            }
+        }
+    } catch (error) {
+        return {
+            success: false,
+            response: 'Something went wrong'
         }
     }
 })
 
 const updateShow = createAsyncThunk("updateShow", async (data) => {
-    try{
-        const res = await axios.patch(`${apiUrl}/api/shows/${data.id}`, data.show)
+    let headers = { headers: { Authorization: `Bearer ${data.token}` } }
+    try {
+        const res = await axios.patch(`${apiUrl}/api/shows/${data.id}`, data.show, headers)
         return res.data
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return {
             payload: 'Error'
@@ -118,11 +148,12 @@ const updateShow = createAsyncThunk("updateShow", async (data) => {
     }
 })
 
-const deleteShow = createAsyncThunk("deleteShow", async (id) => {
-    try{
-        const res = await axios.delete(`${apiUrl}/api/shows/${id}`)
+const deleteShow = createAsyncThunk("deleteShow", async (data) => {
+    let headers = { headers: { Authorization: `Bearer ${data.token}` } }
+    try {
+        const res = await axios.delete(`${apiUrl}/api/shows/${data.id}`, headers)
         return res.data
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return {
             payload: 'Error'
@@ -139,6 +170,7 @@ const hotelActions = {
     deleteHotel,
     updateHotel,
     getShows,
+    createShow,
     updateShow,
     deleteShow
 }

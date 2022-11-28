@@ -3,71 +3,94 @@ import { useRef } from 'react'
 import BotonEnviarForm from '../components/BotonEnviarForm'
 import BotonRegistroGoogle from '../components/BotonRegistroGoogle'
 import InputForm from '../components/InputForm'
+import Swal from 'sweetalert2'
+import axios from 'axios'
+import apiUrl from '../api/url'
 
 export default function SignUp() {
 
     const form = useRef()
-    const fullName = useRef()
+    const name = useRef()
+    const lastName = useRef()
+    const photo = useRef()
+    const age = useRef()
     const email = useRef()
     const password = useRef()
     const confirmPassword = useRef()
-    const tel = useRef()
 
-    let newUser = []
+    function enviarFormulario(event) {
+        event.preventDefault()
 
-    const enviarFormulario = () => {
-
-        if (fullName.current.value !== '' && email.current.value !== '' && password.current.value !== '' && confirmPassword.current.value !== '' && tel.current.value !== '') {
-            if (email.current.value.includes('@') && email.current.value.includes('.')) {
-
-                if (password.current.value === confirmPassword.current.value) {
-                    if (password.current.value.length >= 4) {
-                        for(let i=0; i<tel.current.value.length; i++){
-                            if(tel.current.value.codePointAt(i) < 48 || tel.current.value.codePointAt(i) > 57){
-                                return alert('El teléfono debe ser un número')
-                            }
-                        }
-                        newUser.push(
-                            {
-                                fullName: fullName.current.value,
-                                email: email.current.value,
-                                password: password.current.value,
-                                tel: tel.current.value
-                            }
-                        )
-                        form.current.reset()
-                        alert('Usuario creado con éxito')
-                    } else {
-                        alert('La contraseña debe tener al menos 4 caracteres')
-                    }
-                } else {
-                    alert('Las contraseñas no coinciden')
-                }
-            } else {
-                alert('El email no es válido, debera contener al menos un @ y un .')
+        if (password.current.value === confirmPassword.current.value) {
+            let newUser = {
+                name: name.current.value,
+                lastName: lastName.current.value,
+                photo: photo.current.value,
+                age: age.current.value,
+                email: email.current.value,
+                password: password.current.value,
             }
 
+            Swal.fire({
+                icon: 'info',
+                title: `${newUser.name} ${newUser.lastName} Are you sure you want to register with this information?`,
+                showConfirmButton: true,
+                showCancelButton: true,
+            })
+                .then(async result => {
+                    if (result.isConfirmed) {
+                        let response = await axios.post(`${apiUrl}/api/auth/sign-up`, newUser)
+                        if (response.data.success) {
+                            Swal.fire({
+                                title: 'Success!',
+                                text: `${newUser.name} your account was created successfully. Please check your mailbox ( ${newUser.email} ) and confirm your registration to finish it.`,
+                                icon: 'success',
+                                confirmButtonText: 'Ok'
+                            })
+                            form.current.reset()
+                        }
+                    }
+                })
+                .catch(error => {
+                    if(Array.isArray(error.response.data.message)){
+                        Swal.fire({
+                            icon: "error",
+                            title: error.response.data.message.join(' <br> '),
+                            showConfirmButton: true,
+                        });
+                    }else{
+                        Swal.fire({
+                            icon: "error",
+                            title: error.response.data.message,
+                            showConfirmButton: true,
+                        });
+                    }
+                })
         } else {
-            alert('Todos los campos son obligatorios')
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Passwords do not match!',
+            })
         }
-
-        localStorage.setItem('newUser', JSON.stringify(newUser))
     }
 
     return (
         <main className="w-100 flex column align-center p-3 gap-2 main-container-sign">
-            <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img'/>
+            <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img' />
             <h1 className="text-palette2 ">Sign Up</h1>
             <div className="flex justify-center">
                 <form ref={form}>
                     <div className="card flex column align-center justify-center container-fluid">
                         <img className="img-w-20 flex align-center img-fluid" src="../img/signup-img.png" alt="drawing" />
                         <div className="input-wrapper flex column gap-1">
-                            <InputForm classN="signup-input" type="text" place="Full Name" id="fullName" refId={fullName} />
+                            <InputForm classN="signup-input" type="text" place="Name" id="name" refId={name} />
+                            <InputForm classN="signup-input" type="text" place="LastName" id="lastName" refId={lastName} />
+                            <InputForm classN="signup-input" type="text" place="Photo" id="photo" refId={photo} />
+                            <InputForm classN="signup-input" type="number" place="Age" id="age" refId={age} />
                             <InputForm classN="signup-input" type="email" place="Email" id="email" refId={email} />
                             <InputForm classN="signup-input" type="password" place="Password" id="password" refId={password} />
                             <InputForm classN="signup-input" type="password" place="Confirm Password" id="confirmPassword" refId={confirmPassword} />
-                            <InputForm classN="signup-input" type="text" place="Phone Number" id="tel" refId={tel} />
                         </div>
 
                         <BotonEnviarForm fx={enviarFormulario} texto='Sign Up' />

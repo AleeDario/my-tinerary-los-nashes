@@ -1,7 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
 import cityActions from "../actions/cityActions";
 
-const { getAllCities , getCitiesFiltred , createCity, getCitiesAdmin, deleteCity, updateCity, getItineraries, updateItinerary, deleteItinerary} = cityActions;
+const { getAllCities , getCitiesFiltred , createCity, getCitiesAdmin, deleteCity, updateCity, getItineraries, updateItinerary, deleteItinerary, createItinerary} = cityActions;
 
 const initialState = {
     cities: [],
@@ -25,24 +25,32 @@ const cityReducer = createReducer(initialState,
             })
             .addCase(createCity.fulfilled,(state, action) => {
                 if (action.payload.success) {
-                    state.cities.push(action.payload)
+                    return { ...state, cities: [...state.cities, action.payload.response] };
                 }
             })
             .addCase(getCitiesAdmin.fulfilled, (state, action) => {
                 return { ...state, citiesAdmin: action.payload};
             })
             .addCase(deleteCity.fulfilled, (state, action) => {
-                let city = state.citiesAdmin.filter(city => city.id !== action.payload.data._id)
-                return { ...state, citiesAdmin: city};
+                let city = state.citiesAdmin.filter(city => city._id !== action.payload.data._id)
+                return { ...state, citiesAdmin: city , cities: city};
             })
             .addCase(updateCity.fulfilled, (state, action) => {
-                return { ...state};
+                let city = state.citiesAdmin.filter(city => city._id !== action.payload.data._id)
+                let cities = state.cities.filter(city => city._id !== action.payload.data._id)
+                return { ...state, citiesAdmin: [...city, action.payload.data], cities: [...cities, action.payload.data]};
             })
             .addCase(getItineraries.fulfilled, (state, action) => {
                 return { ...state, itineraries: action.payload};
             })
+            .addCase(createItinerary.fulfilled, (state, action) => {
+                if (action.payload.success) {
+                    return { ...state, itineraries: [...state.itineraries, action.payload.response] };
+                }
+            })
             .addCase(updateItinerary.fulfilled, (state, action) => {
-                return { ...state};
+                let itinerary = state.itineraries.filter(itinerary => itinerary._id !== action.payload.data._id)
+                return { ...state, itineraries: [...itinerary, action.payload.data]};
             })
             .addCase(deleteItinerary.fulfilled, (state, action) => {
                 let itinerary = state.itineraries.filter(itinerary => itinerary._id !== action.payload.data._id)

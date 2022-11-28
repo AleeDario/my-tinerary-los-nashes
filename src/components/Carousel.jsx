@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import BotonFlecha from './BotonFlecha'
 import { useSelector, useDispatch } from 'react-redux'
@@ -29,7 +28,7 @@ export default function Carousel() {
     useEffect(() => {
         dispatch(getAllCities())
         dispatch(getAllHotels())
-
+        // eslint-disable-next-line
     }, [])
 
     let siguiente = () => {
