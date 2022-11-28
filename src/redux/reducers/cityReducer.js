@@ -33,11 +33,12 @@ const cityReducer = createReducer(initialState,
             })
             .addCase(deleteCity.fulfilled, (state, action) => {
                 let city = state.citiesAdmin.filter(city => city._id !== action.payload.data._id)
-                return { ...state, citiesAdmin: city};
+                return { ...state, citiesAdmin: city , cities: city};
             })
             .addCase(updateCity.fulfilled, (state, action) => {
                 let city = state.citiesAdmin.filter(city => city._id !== action.payload.data._id)
-                return { ...state, citiesAdmin: [...city, action.payload.data]};
+                let cities = state.cities.filter(city => city._id !== action.payload.data._id)
+                return { ...state, citiesAdmin: [...city, action.payload.data], cities: [...cities, action.payload.data]};
             })
             .addCase(getItineraries.fulfilled, (state, action) => {
                 return { ...state, itineraries: action.payload};

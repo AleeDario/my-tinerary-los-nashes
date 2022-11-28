@@ -22,7 +22,7 @@ const hotelReducer = createReducer(initialState,
             })
             .addCase(createHotel.fulfilled,(state, action) => {
                 if (action.payload.success) {
-                    state.hotels.push(action.payload)
+                    return { ...state, hotels: [...state.hotels, action.payload.response]};
                 }
             })
             .addCase(getHotelsAdmin.fulfilled, (state, action) => {
@@ -30,11 +30,12 @@ const hotelReducer = createReducer(initialState,
             })
             .addCase(deleteHotel.fulfilled, (state, action) => {
                 let hotel = state.hotelsAdmin.filter(hotel => hotel._id !== action.payload.data._id)
-                return { ...state, hotelsAdmin: hotel};
+                return { ...state, hotelsAdmin: hotel, hotels: hotel};
             })
             .addCase(updateHotel.fulfilled, (state, action) => {
                 let hotel = state.hotelsAdmin.filter(hotel => hotel._id !== action.payload.data._id)
-                return { ...state, hotelsAdmin: [...hotel, action.payload.data]};
+                let hotels = state.hotels.filter(hotel => hotel._id !== action.payload.data._id)
+                return { ...state, hotelsAdmin: [...hotel, action.payload.data], hotels: [...hotels, action.payload.data]};
             })
             .addCase(getShows.fulfilled, (state, action) => {
                 return { ...state, shows: action.payload};

@@ -69,9 +69,10 @@ const getHotelsAdmin = createAsyncThunk("getHotelsAdmin", async (id) => {
     }
 })
 
-const deleteHotel = createAsyncThunk("deleteHotel", async (id) => {
+const deleteHotel = createAsyncThunk("deleteHotel", async (data) => {
+    let headers = { headers: { Authorization: `Bearer ${data.token}`}}
     try{
-        const res = await axios.delete(`${apiUrl}/api/hotels/${id}`)
+        const res = await axios.delete(`${apiUrl}/api/hotels/${data.id}`, headers)
         return res.data
     }catch(error){
         console.log(error)
@@ -82,8 +83,9 @@ const deleteHotel = createAsyncThunk("deleteHotel", async (id) => {
 })
 
 const updateHotel = createAsyncThunk("updateHotel", async (data) => {
+    let headers = { headers: { Authorization: `Bearer ${data.token}`}}
     try{
-        const res = await axios.patch(`${apiUrl}/api/hotels/${data.id}`, data.hotels)
+        const res = await axios.patch(`${apiUrl}/api/hotels/${data.id}`, data.hotels, headers)
         console.log(res.data)
         return res.data
     }catch(error){
