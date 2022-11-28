@@ -42,7 +42,7 @@ const hotelReducer = createReducer(initialState,
             })
             .addCase(createShow.fulfilled, (state, action) => {
                 if (action.payload.success) {
-                    return { ...state, shows: [...state.shows, action.payload.response] };
+                    return { ...state, shows: [...state.shows, action.payload.response]};
                 }
             })
             .addCase(updateShow.fulfilled, (state, action) => {

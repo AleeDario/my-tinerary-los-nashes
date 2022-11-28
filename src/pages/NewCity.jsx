@@ -12,7 +12,7 @@ export default function NewCity() {
 
     const dispatch = useDispatch()
     const { createCity} = cityActions
-    const { id } = useSelector(state => state.user)
+    const { id, token } = useSelector(state => state.user)
     const navigate = useNavigate()
 
     const form = useRef()
@@ -22,20 +22,21 @@ export default function NewCity() {
     const population = useRef()
 
     async function enviarFormulario(event) {
-        let newCity;
         event.preventDefault()
 
-        newCity = {
-            name: name.current.value,
-            continent: continent.current.value,
-            photo: photo.current.value,
-            population: population.current.value,
-            userId: id,
+        let datos = {
+            token,
+            city:{
+                name: name.current.value,
+                continent: continent.current.value,
+                photo: photo.current.value,
+                population: population.current.value,
+                userId: id,
+            }
         }
 
         try {
-            let res = await dispatch(createCity(newCity))
-            console.log(res.payload)
+            let res = await dispatch(createCity(datos))
             if (res.payload.success) {
                 Swal.fire({
                     icon: 'success',

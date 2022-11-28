@@ -2138,6 +2138,11 @@ button:active {
     transition: all .5s;
 }
 
+.img-detail{
+    width: 30em;
+    height: 80%;
+}
+
 .labelForm{
     color: #1c232c;
 }

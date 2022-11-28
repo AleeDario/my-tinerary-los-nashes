@@ -8,7 +8,6 @@ export default function DetailsCity() {
 
     const { id } = useParams()
 
-
     const [detailCards, setDetailCards] = useState([])
     const [itinerary, setItinerary] = useState([])
 
@@ -41,6 +40,21 @@ export default function DetailsCity() {
     if (detailCards.length !== 0) {
         let name = detailCards.name.split(" ").join("")
         name = name.toLowerCase()
+        let ciudades = [
+            'New York',
+            'Paris',
+            'Rio de Janeiro',
+            'Dubai',
+            'Buenos Aires',
+            'Pekin',
+            'London',
+            'Tokyo',
+            'Rome',
+            'Barcelona',
+            'Cape Town',
+            'Sídney',
+            'Cartagena',
+        ]
         let videoFondo= `../img/video/${name}.mp4`
         return (
             <>
@@ -48,7 +62,12 @@ export default function DetailsCity() {
                     <img className='imgFondo' src='../img/fondo.jpg' alt='fondo-img'/>
                     <div className="card-detail-cities flex justify-center m-1 m-t-11 container-fluid">
                         <div className="img-card-detail bg-palette2 p-1 flex justify-center align-center">
-                            <video className='img-w-30 border-radius-1 img-fluid' src={videoFondo} autoPlay muted loop></video>
+                            {ciudades.includes(detailCards.name) ? (
+                                <video className='img-w-30 border-radius-1 img-fluid' src={videoFondo} autoPlay muted loop></video>
+                            ) : (
+                                <img className='img-w-30 img-detail border-radius-1 img-fluid' src={detailCards.photo} alt={detailCards.name} />
+                            )}
+                            
                         </div>
                         <div className="text-card-detail flex column justify-center align-center bg-palette1 text-white gap-2 p-1">
                             <div className="logo-details">
