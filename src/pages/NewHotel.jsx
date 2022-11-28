@@ -5,7 +5,6 @@ import BotonEnviarForm from '../components/BotonEnviarForm'
 import InputForm from '../components/InputForm'
 import hotelActions from '../redux/actions/hotelActions'
 import Swal from 'sweetalert2'
-import cityActions from '../redux/actions/cityActions'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -21,27 +20,23 @@ export default function NewHotel() {
 
     const dispatch = useDispatch()
     const { cities } = useSelector(state => state.city)
-    const { id } = useSelector(state => state.user)
+    const { id, token } = useSelector(state => state.user)
     const { createHotel } = hotelActions
-    const { getAllCities } = cityActions
-
-    useEffect(() => {
-
-        dispatch(getAllCities())
-        // eslint-disable-next-line
-    }, [])
 
     async function enviarFormulario(event) {
         event.preventDefault()
-        let newHotel = {
-            name: name.current.value,
-            photo: [photo1.current.value, photo2.current.value, photo3.current.value],
-            capacity: capacity.current.value,
-            cityId: cityId.current.value,
-            userId: id
+        let data = {
+            token,
+            hotel: {
+                name: name.current.value,
+                photo: [photo1.current.value, photo2.current.value, photo3.current.value],
+                capacity: capacity.current.value,
+                cityId: cityId.current.value,
+                userId: id
+            }
         }
         try {
-            let res = await dispatch(createHotel(newHotel))
+            let res = await dispatch(createHotel(data))
             if (res.payload.success) {
                 Swal.fire({
                     icon: 'success',
@@ -83,7 +78,7 @@ export default function NewHotel() {
                                     <InputForm classN="signup-input" type="text" place='Url Photo 2' id="Photo2" refId={photo2} />
                                     <InputForm classN="signup-input" type="text" place='Url Photo 3' id="Photo3" refId={photo3} />
                                     <InputForm classN="signup-input" type="number" place="Capacity" id="capacity" refId={capacity} />
-                                    <label className='title-select' for='cityId'>Select a city :</label>
+                                    <label className='title-select' htmlFor='cityId'>Select a city :</label>
                                     <select ref={cityId} className="signup-input select" id="cityId">
                                         {cities.map(city => <option key={city._id} value={city._id}>{city.name}</option>)}
                                     </select>

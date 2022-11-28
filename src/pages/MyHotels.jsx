@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import hotelActions from '../redux/actions/hotelActions'
 import HotelCardAdmin from '../components/HotelCardAdmin'
@@ -8,7 +8,7 @@ export default function MyHotels() {
 
     const dispatch = useDispatch()
     const { hotelsAdmin } = useSelector(state => state.hotel)
-    const { getHotelsAdmin } = hotelActions	
+    const { getHotelsAdmin } = hotelActions
     const { id } = useSelector(state => state.user)
 
     useEffect(() => {

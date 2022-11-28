@@ -9,12 +9,6 @@ import { useNavigate } from 'react-router-dom'
 
 export default function NewShow() {
 
-    const dispatch = useDispatch()
-    const { createShow } = hotelActions
-    const { hotels } = useSelector(state => state.hotel)
-    const { token, id } = useSelector(state => state.user)
-    const navigate = useNavigate()
-
     const form = useRef()
     const name = useRef()
     const photo = useRef()
@@ -22,12 +16,18 @@ export default function NewShow() {
     const date = useRef()
     const price = useRef()
     const hotelId = useRef()
+    const navigate = useNavigate()
+
+    const dispatch = useDispatch()
+    const { createShow } = hotelActions
+    const { hotels } = useSelector(state => state.hotel)
+    const { token, id } = useSelector(state => state.user)
 
     async function enviarForm(e) {
         e.preventDefault()
         let datos = {
             token,
-           show: {
+            show: {
                 name: name.current.value,
                 photo: photo.current.value,
                 description: description.current.value,
@@ -37,9 +37,9 @@ export default function NewShow() {
                 userId: id
             }
         }
+
         try {
             let res = await dispatch(createShow(datos))
-            console.log(res)
             if (res.payload.success) {
                 Swal.fire({
                     icon: 'success',
@@ -47,7 +47,7 @@ export default function NewShow() {
                     showConfirmButton: true,
                     showCancelButton: true,
                     confirmButtonText: 'See my shows',
-                    cancelButtonText: 'Add another show'
+                    cancelButtonText: 'Add another show',
                 })
                     .then(result => {
                         if (result.isConfirmed) {
@@ -55,7 +55,7 @@ export default function NewShow() {
                         }
                     })
                 form.current.reset()
-            }else{
+            } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
