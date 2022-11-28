@@ -69,9 +69,10 @@ const getCitiesAdmin = createAsyncThunk("getCitiesAdmin", async (id) => {
     }
 })
 
-const deleteCity = createAsyncThunk("deleteCity", async (id) => {
+const deleteCity = createAsyncThunk("deleteCity", async (data) => {
+    let headers = { headers: { Authorization: `Bearer ${data.token}`}}
     try{
-        const res = await axios.delete(`${apiUrl}/api/cities/${id}`)
+        const res = await axios.delete(`${apiUrl}/api/cities/${data.id}`, headers)
         return res.data
     }catch(error){
         console.log(error)
@@ -82,8 +83,9 @@ const deleteCity = createAsyncThunk("deleteCity", async (id) => {
 })
 
 const updateCity = createAsyncThunk("updateCity", async (data) => {
+    let headers = { headers: { Authorization: `Bearer ${data.token}`}}
     try{
-        const res = await axios.put(`${apiUrl}/api/cities/${data.id}`, data.citie)
+        const res = await axios.put(`${apiUrl}/api/cities/${data.id}`, data.citie, headers)
         return res.data
     }catch(error){
         console.log(error)

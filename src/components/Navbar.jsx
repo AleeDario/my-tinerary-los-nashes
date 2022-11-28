@@ -89,8 +89,6 @@ export default function Navbar() {
                             )}
                             {role === 'admin' && (
                                 <>
-                                    <CallToAction rute='/newcity' classN='btn3' text='NEW CITY' />
-                                    <CallToAction rute='/newhotel' classN='btn3' text='NEW HOTEL' />
                                     <CallToAction rute='/mycities' classN='btn3' text='MY CITIES' />
                                     <CallToAction rute='/myhotels' classN='btn3' text='MY HOTELS' />
                                 </>
