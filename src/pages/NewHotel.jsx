@@ -6,6 +6,7 @@ import InputForm from '../components/InputForm'
 import hotelActions from '../redux/actions/hotelActions'
 import Swal from 'sweetalert2'
 import cityActions from '../redux/actions/cityActions'
+import { useNavigate } from 'react-router-dom'
 
 
 export default function NewHotel() {
@@ -16,9 +17,11 @@ export default function NewHotel() {
     const photo3 = useRef()
     const capacity = useRef()
     const cityId = useRef()
+    const navigate = useNavigate()
 
     const dispatch = useDispatch()
     const { cities } = useSelector(state => state.city)
+    const { id } = useSelector(state => state.user)
     const { createHotel } = hotelActions
     const { getAllCities } = cityActions
 
@@ -35,7 +38,7 @@ export default function NewHotel() {
             photo: [photo1.current.value, photo2.current.value, photo3.current.value],
             capacity: capacity.current.value,
             cityId: cityId.current.value,
-            userId: '636d82c86529ebe93bbef91f'
+            userId: id
         }
         try {
             let res = await dispatch(createHotel(newHotel))
@@ -47,7 +50,7 @@ export default function NewHotel() {
                 })
                     .then(result => {
                         if (result.isConfirmed) {
-                            window.location.href = `/detailsH/${res.payload.id}`
+                            navigate(`/detailsH/${res.payload.id}`)
                         }
                     })
                 form.current.reset()
@@ -79,7 +82,7 @@ export default function NewHotel() {
                                     <InputForm classN="signup-input" type="text" place='Url Photo 1' id="Photo1" refId={photo1} />
                                     <InputForm classN="signup-input" type="text" place='Url Photo 2' id="Photo2" refId={photo2} />
                                     <InputForm classN="signup-input" type="text" place='Url Photo 3' id="Photo3" refId={photo3} />
-                                    <InputForm classN="signup-input" type="text" place="Capacity" id="capacity" refId={capacity} />
+                                    <InputForm classN="signup-input" type="number" place="Capacity" id="capacity" refId={capacity} />
                                     <label className='title-select' for='cityId'>Select a city :</label>
                                     <select ref={cityId} className="signup-input select" id="cityId">
                                         {cities.map(city => <option key={city._id} value={city._id}>{city.name}</option>)}
