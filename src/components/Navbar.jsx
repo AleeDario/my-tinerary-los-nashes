@@ -91,14 +91,17 @@ export default function Navbar() {
                                 <>
                                     <CallToAction rute='/mycities' classN='btn3' text='MY CITIES' />
                                     <CallToAction rute='/myhotels' classN='btn3' text='MY HOTELS' />
+                                    <CallToAction rute='/newreactions' classN='btn3' text='NEW REACTIONS' />
                                 </>
                             )}
-                            {online && (
+                            {role === 'user' && (
                                 <>
                                     <CallToAction rute='/myitineraries' classN='btn3' text='MY ITINERARY' />
                                     <CallToAction rute='/myshows' classN='btn3' text='MY SHOWS' />
-                                    <CallToAction fx={singOut} classN='btn3' text='LOG OUT' />
                                 </>
+                            )}
+                            {online && (
+                                <CallToAction fx={singOut} classN='btn3' text='LOG OUT' />
                             )}
                         </div>
                     )}
