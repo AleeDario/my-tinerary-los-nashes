@@ -7,7 +7,7 @@ import AddCard from '../components/AddCard'
 export default function MyItineraries() {
     const dispatch = useDispatch()
     const { itineraries} = useSelector(state => state.city)
-    const { id } = useSelector(state => state.user)
+    const { id} = useSelector(state => state.user)
     const { getItineraries} = cityActions	
 
     useEffect(() => {

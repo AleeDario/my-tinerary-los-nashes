@@ -1,6 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import userActions from "./redux/actions/userActions";
 import Layout from "./layouts/Layout";
+import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
@@ -14,17 +17,17 @@ import MyCities from "./pages/MyCities";
 import MyHotels from "./pages/MyHotels"
 import MyItineraries from "./pages/MyItineraries";
 import MyShows from "./pages/MyShows";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import userActions from "./redux/actions/userActions";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MyProfile from "./pages/MyProfile";
 import NewItinerary from "./pages/NewItinerary";
 import NewShow from "./pages/NewShow";
+import NewReaction from "./pages/NewReaction";
+import { useNavigate } from "react-router-dom";
 
 function App() {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { reLogin } = userActions
     const { online, role } = useSelector(state => state.user)
     const token = JSON.parse(localStorage.getItem("token"))
@@ -50,22 +53,27 @@ function App() {
                 <Route path="/hotels" element={<Hotels />} />
                 <Route path="/detailsH/:id" element={<DetailsHotels />} />
                 {online && (
-                    <Route element={<ProtectedRoute isAllowed={!!online} reDirect='/signin' />}>
-                        <Route path="/myprofile" element={<MyProfile />} />
-                    </Route>
+                    <>
+                        <Route element={<ProtectedRoute isAllowed={!!online} reDirect='/signin' />}>
+                            <Route path="/myprofile" element={<MyProfile />} />
+                        </Route>
+                        <Route element={<ProtectedRoute isAllowed={role === 'admin'} reDirect='/signin' />}>
+                            <Route path="/mycities" element={<MyCities />} />
+                            <Route path="/myhotels" element={<MyHotels />} />
+                            <Route path="/newcity" element={<NewCity />} />
+                            <Route path="/newhotel" element={<NewHotel />} />
+                            <Route path="/newreactions" element={<NewReaction />} />
+                        </Route>
+                        <Route element={<ProtectedRoute isAllowed={role === 'user'} reDirect='/signin' />}>
+                            <Route path="/myitineraries" element={<MyItineraries />} />
+                            <Route path="/myshows" element={<MyShows />} />
+                            <Route path="/newitinerary" element={<NewItinerary />} />
+                            <Route path="/newshow" element={<NewShow />} />
+                        </Route>
+                    </>
+
                 )}
-                <Route element={<ProtectedRoute isAllowed={!!online && role === 'admin'} reDirect='/signin' />}>
-                    <Route path="/mycities" element={<MyCities />} />
-                    <Route path="/myhotels" element={<MyHotels />} />
-                    <Route path="/newcity" element={<NewCity />} />
-                    <Route path="/newhotel" element={<NewHotel />} />
-                </Route>
-                <Route element={<ProtectedRoute isAllowed={!!online} reDirect='/signin' />}>
-                    <Route path="/myitineraries" element={<MyItineraries />} />
-                    <Route path="/myshows" element={<MyShows />} />
-                    <Route path="/newitinerary" element={<NewItinerary />} />
-                    <Route path="/newshow" element={<NewShow />} />
-                </Route>
+
                 <Route path="/*" element={<NotFound />} />
             </Routes>
         </Layout>

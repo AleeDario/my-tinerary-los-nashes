@@ -149,7 +149,7 @@ export default function ItineraryCardAdmin(props) {
             </div>
             <div className="text-card">
                 <h3>{itineraries.name}</h3>
-                <h4>City: {city.name}</h4>
+                <h4>City: {itineraries.name}</h4>
                 <p>Price: {itineraries.price}</p>
                 <p>Duration: {itineraries.duration}</p>
             </div>

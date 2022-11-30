@@ -6,11 +6,12 @@ import Swal from 'sweetalert2'
 import BotonEnviarForm from '../components/BotonEnviarForm'
 import InputForm from '../components/InputForm'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 export default function NewItinerary() {
 
     const dispatch = useDispatch()
-    const { createItinerary } = cityActions
+    const { createItinerary, getAllCities } = cityActions
     const { cities } = useSelector(state => state.city)
     const { token, id } = useSelector(state => state.user)
     const navigate = useNavigate()
@@ -24,6 +25,11 @@ export default function NewItinerary() {
     const duration = useRef()
     const price = useRef()
     const cityId = useRef()
+
+    useEffect(() => {
+        dispatch(getAllCities())
+        // eslint-disable-next-line
+    }, [])
 
     async function enviarForm(e) {
         e.preventDefault()
