@@ -112,6 +112,18 @@ const getShows = createAsyncThunk("getShows", async (id) => {
     }
 })
 
+const getAllShows = createAsyncThunk("getAllShows", async (id) => {
+    try {
+        const res = await axios.get(`${apiUrl}/api/shows`)
+        return res.data.data
+    } catch (error) {
+        console.log(error)
+        return {
+            payload: 'Error'
+        }
+    }
+})
+
 const createShow = createAsyncThunk("createShow", async (data) => {
     let headers = { headers: { Authorization: `Bearer ${data.token}` } }
     try {
@@ -173,6 +185,7 @@ const hotelActions = {
     deleteHotel,
     updateHotel,
     getShows,
+    getAllShows,
     createShow,
     updateShow,
     deleteShow

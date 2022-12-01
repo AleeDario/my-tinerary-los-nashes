@@ -25,7 +25,7 @@ export default function CardItinerary(props) {
                 <div className='flex w-100 justify-between'>
                     <p>Price : ${itinerary.price}</p>
                     <div className="flex gap-1">
-                        <Reaction idItinerary={itinerary._id} />
+                        <Reaction eventId={itinerary._id} type='itinerary' />
                     </div>
                 </div>
 
