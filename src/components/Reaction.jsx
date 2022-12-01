@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 
 
 export default function Reaction(props) {
-    let { idItinerary } = props
+    let { eventId, type } = props
     const dispatch = useDispatch()
     const { getReactions, updateReaction } = reactionActions
     const { token, id } = useSelector(state => state.user)
@@ -18,7 +18,11 @@ export default function Reaction(props) {
     }, [reload])
 
     async function reactions() {
-        let res = await dispatch(getReactions(idItinerary))
+        let datos = {
+            type,
+            eventId,
+        }
+        let res = await dispatch(getReactions(datos))
         setReaction(res.payload)
     }
 
@@ -32,8 +36,9 @@ export default function Reaction(props) {
 
         let datos = {
             token,
-            id: idItinerary,
+            id: eventId,
             name,
+            type,
         }
         try {
             await dispatch(updateReaction(datos))
@@ -55,23 +60,29 @@ export default function Reaction(props) {
                             {
                                 res ? (
                                     <div className='elDiv'>
+                                        {react.userId.length > 0 && (
                                         <div>{react.userId.map(user => {
                                             return (<div className='flex'>
                                                 <img className='img-fluid imgLike' src={user.photo} alt="" />
                                                 <p>{user.name} {user.lastName}</p>
                                             </div>)
                                         })}</div>
+                                        )}
                                         <img onClick={press} width='30px' name={react.name} src={react.icon} alt="icon" />
                                         <p>{reaction.lengthOfReactions[react.name]}</p>
                                     </div>
                                 ) : (
                                     <div className='elDiv'>
-                                        <div>{react.userId.map(user => {
-                                            return (<div className='flex'>
-                                                <img className='img-fluid imgLike' src={user.photo} alt="" />
-                                                <p>{user.name} {user.lastName}</p>
-                                            </div>)
-                                        })}</div>
+                                        {
+                                            react.userId.length > 0 && (
+                                                <div>{react.userId.map(user => {
+                                                    return (<div className='flex'>
+                                                        <img className='img-fluid imgLike' src={user.photo} alt="" />
+                                                        <p>{user.name} {user.lastName}</p>
+                                                    </div>)
+                                                })}</div>
+                                            )}
+                                        
                                         <img onClick={press} width='30px' name={react.name} src={react.iconBack} alt="icoBack" />
                                         <p>{reaction.lengthOfReactions[react.name]}</p>
                                     </div>

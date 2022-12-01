@@ -4,41 +4,53 @@ import reactionActions from '../redux/actions/reactionActions'
 import Swal from 'sweetalert2'
 import BotonEnviarForm from '../components/BotonEnviarForm'
 import InputForm from '../components/InputForm'
-import { useRef } from 'react'
-import { useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import cityActions from '../redux/actions/cityActions'
+import hotelActions from '../redux/actions/hotelActions'
 
 
 export default function NewReaction() {
 
     const dispatch = useDispatch()
     const { itinerariesAll } = useSelector(state => state.city)
+    const { allShows } = useSelector(state => state.hotel)
+    const eventsAll = itinerariesAll.concat(allShows)
     const { token } = useSelector(state => state.user)
     const { getItinerariesAll } = cityActions
+    const { getAllShows } = hotelActions
     const { createReaction } = reactionActions
 
     const form = useRef()
     const name = useRef()
     const icon = useRef()
     const iconBack = useRef()
-    const itineraryId = useRef()
+    const eventId = useRef()
 
     useEffect(() => {
         dispatch(getItinerariesAll())
+        dispatch(getAllShows())
         // eslint-disable-next-line
     }, [])
 
     function enviarForm(e) {
         e.preventDefault()
+        let itinerary = itinerariesAll.find(itinerary => itinerary._id === eventId.current.value)
+        let show = allShows.find(show => show._id === eventId.current.value)
+
         let datos = {
             token,
             reaction: {
                 name: name.current.value,
                 icon: icon.current.value,
                 iconBack: iconBack.current.value,
-                itineraryId: itineraryId.current.value,
                 userId: []
             }
+        }
+
+        if (itinerary) {
+            datos.reaction.itineraryId = eventId.current.value
+        } else if (show) {
+            datos.reaction.showId = eventId.current.value
         }
         // Alerta preguntando si desea crear la reacción
         Swal.fire({
@@ -61,7 +73,6 @@ export default function NewReaction() {
                             })
                             form.current.reset()
                         } else {
-                            console.log(res.payload)
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
@@ -74,6 +85,7 @@ export default function NewReaction() {
                 }
             })
     }
+
 
     return (
         <main className="w-100 flex column align-center p-3 gap-2 main-container-sign">
@@ -89,9 +101,9 @@ export default function NewReaction() {
                                     <InputForm classN="signup-input" type="text" place="Reaction Name" id="name" refId={name} />
                                     <InputForm classN="signup-input" type="text" place='Url Icon' id="icon" refId={icon} />
                                     <InputForm classN="signup-input" type="text" place='Url Icon Back' id="iconBack" refId={iconBack} />
-                                    <label className='title-select' htmlFor='cityId'>Select a itinerary :</label>
-                                    <select ref={itineraryId} className="signup-input select" id="itineraryId">
-                                        {itinerariesAll.map(itinerary => <option key={itinerary._id} value={itinerary._id}>{itinerary.name}</option>)}
+                                    <label className='title-select' htmlFor='cityId'>Select a itinerary o show :</label>
+                                    < select ref={eventId} className="signup-input select" id="eventId">
+                                        {eventsAll.map(event => <option key={event._id} value={event._id}>{event.name}</option>)}
                                     </select>
                                 </div>
                                 <BotonEnviarForm fx={enviarForm} texto='Create Reaction' />
@@ -99,7 +111,7 @@ export default function NewReaction() {
                         </div>
                     </div>
                 </form>
-            </div>
-        </main>
+            </div >
+        </main >
     )
 }
