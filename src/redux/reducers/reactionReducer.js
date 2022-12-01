@@ -1,46 +1,22 @@
 import { createReducer } from "@reduxjs/toolkit";
 import reactionActions from "../actions/reactionActions";
 
-const { getReactions, updateReaction } = reactionActions;
+const { getMyReactions,deleteReaction } = reactionActions;
 
 const initialState = {
-    reactioned: [
-        {
-            name: "like",
-            reactioned: false,
-        },
-        {
-            name: "love",
-            reactioned: false,
-        },
-        {
-            name: 'not-like',
-            reactioned: false,
-        },
-        {
-            name: 'surprise',
-            reactioned: false,
-        }
-    ],
+    myReactions: [],
 
 };
 
 const reactionReducer = createReducer(initialState,
     (builder) => {
         builder
-            .addCase(getReactions.fulfilled, (state, action) => {
-                if (action.payload.success) {
-                    return { ...state, reactions: action.payload.data, cantReactions: action.payload.lengthOfReactions, idReaction: action.payload.id };
-                } else {
-                    return { ...state, reactions: [], cantReactions: {}, idReaction: "" };
-                }
+            .addCase(getMyReactions.fulfilled, (state, action) => {
+                return {...state, myReactions: action.payload}
             })
-            .addCase(updateReaction.fulfilled, (state, action) => {
-                state.reactioned.forEach(reaction => {
-                    if (reaction.name === action.payload.name) {
-                        reaction.reactioned = !reaction.reactioned
-                    }
-                })
+            .addCase(deleteReaction.fulfilled, (state, action) => {
+                let newReactions = state.myReactions.filter(reaction => reaction._id !== action.payload.data._id)
+                return {...state, myReactions: newReactions}
             })
     }
 );

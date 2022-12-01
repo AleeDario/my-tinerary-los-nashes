@@ -202,6 +202,7 @@ body {
     border-radius: 0.5rem;
     box-shadow: 0 0 0.5rem 0.1rem rgba(0, 0, 0, 0.1);
     padding: 1rem;
+    min-width: 250px;
 }
 
 .card-text {
@@ -2034,11 +2035,11 @@ button:active {
 }
 
 
-.elDiv > div {
+.elDiv>div {
     position: absolute;
     display: none;
     width: 100%;
-    min-width:190px;
+    min-width: 190px;
     word-wrap: break-all;
     gap: 1em;
 }
@@ -2050,12 +2051,53 @@ button:active {
     background: rgba(255, 255, 255, 0.448);
     color: rgb(0, 0, 0);
     padding: 6px;
-    
+
 }
 
-.imgLike{
+.imgLike {
     width: 20px;
     height: 20px;
+}
+
+.iconReaction:hover{
+    transform: scale(1.2);
+    transition: all .3s;
+}
+
+.img-reaction {
+    width: 100%;
+    object-fit: cover;
+    height: 150px;
+    border-radius: 0.5em;
+    box-shadow: rgba(0, 0, 0,.7) .2em .2em;
+}
+
+.love {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(360deg, rgba(255, 255, 255, 1) 0%, rgba(242, 8, 8, 0.903) 100%);
+    border-top: solid 4px rgb(242, 8, 8);
+    border-bottom: solid 4px rgb(242, 8, 8);
+}
+
+.surprise {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(360deg, rgba(255, 255, 255, 1) 0%, rgb(208, 191, 60) 100%);
+    border-top: solid 4px rgb(248, 220, 8);
+    border-bottom: solid 4px rgba(248, 220, 8);
+}
+
+.like {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(360deg, rgba(255, 255, 255, 1) 0%, rgba(34, 128, 228, 0.816) 100%);
+    border-top: solid 4px rgb(34, 128, 228);
+    border-bottom: solid 4px rgb(34, 128, 228);
+}
+
+.not-like {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(360deg, rgba(255, 255, 255, 1) 0%, rgba(236, 85, 155, 0.719) 100%);
+    border-top: solid 4px rgb(236, 85, 155);
+    border-bottom: solid 4px rgb(236, 85, 155);
 }
 
 /* MEDIA QUERIES */
@@ -2188,6 +2230,15 @@ button:active {
         width: 80%;
     }
 
+    .buttonsPerfil {
+        flex-direction: column;
+        gap: 4em;
+        align-items: center;
+    }
+
+    .cardFormPerfil2 {
+        justify-content: center;
+    }
 }
 
 @media screen and (max-width: 477px) {

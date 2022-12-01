@@ -22,12 +22,10 @@ import MyProfile from "./pages/MyProfile";
 import NewItinerary from "./pages/NewItinerary";
 import NewShow from "./pages/NewShow";
 import NewReaction from "./pages/NewReaction";
-import { useNavigate } from "react-router-dom";
 
 function App() {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const { reLogin } = userActions
     const { online, role } = useSelector(state => state.user)
     const token = JSON.parse(localStorage.getItem("token"))
