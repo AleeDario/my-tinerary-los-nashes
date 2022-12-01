@@ -26,9 +26,12 @@ const getHotelsFiltered = createAsyncThunk("getHotelsFiltered", async (data) => 
         return dataReduce
     } catch (error) {
         console.log(error)
-        return {
-            payload: 'Error'
+        const dataReduce = {
+            res: [],
+            name: data.name,
+            order: data.order
         }
+        return dataReduce
     }
 })
 

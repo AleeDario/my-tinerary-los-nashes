@@ -4,14 +4,10 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import apiUrl from '../api/url';
 import CardItinerary from '../components/CardItinerary';
-import { useDispatch } from 'react-redux';
-import reactionActions from '../redux/actions/reactionActions';
 
 export default function DetailsCity() {
 
     const { id } = useParams()
-    const dispatch = useDispatch()
-    const { getReactions } = reactionActions
 
     const [detailCards, setDetailCards] = useState([])
     const [itinerary, setItinerary] = useState([])

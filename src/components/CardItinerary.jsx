@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch} from 'react-redux'
 import reactionActions from '../redux/actions/reactionActions'
 import Reaction from './Reaction'
 
@@ -7,7 +7,6 @@ export default function CardItinerary(props) {
     let { itinerary } = props
     const dispatch = useDispatch()
     const { getReactions } = reactionActions
-    const { idReaction } = useSelector(state => state.reaction)
 
     useEffect(() => {
         dispatch(getReactions(itinerary._id))

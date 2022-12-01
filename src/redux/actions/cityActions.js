@@ -26,9 +26,13 @@ const getCitiesFiltred = createAsyncThunk("getCitiesFiltred", async (data) => {
         return dataReduce
     } catch (error) {
         console.log(error)
-        return {
-            payload: 'Error'
+        const dataReduce = {
+            res: [],
+            checks: data.checks,
+            name: data.name,
+            checked: data.checked,
         }
+        return dataReduce
     }
 })
 

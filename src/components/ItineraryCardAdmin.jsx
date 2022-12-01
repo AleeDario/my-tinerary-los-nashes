@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector} from 'react-redux'
 import Swal from 'sweetalert2'
 import cityActions from '../redux/actions/cityActions'
@@ -6,9 +7,14 @@ import cityActions from '../redux/actions/cityActions'
 export default function ItineraryCardAdmin(props) {
     let { itineraries } = props
     const dispatch = useDispatch()
-    const { deleteItinerary, updateItinerary } = cityActions
+    const { getAllCities ,deleteItinerary, updateItinerary } = cityActions
     const { cities } = useSelector(state => state.city)
     const { token } = useSelector(state => state.user)
+
+    useEffect(() => {
+        dispatch(getAllCities())
+        // eslint-disable-next-line
+    }, [])
 
     async function deleteAdmin() {
         try {
@@ -149,7 +155,7 @@ export default function ItineraryCardAdmin(props) {
             </div>
             <div className="text-card">
                 <h3>{itineraries.name}</h3>
-                <h4>City: {itineraries.name}</h4>
+                <h4>City: {city.name}</h4>
                 <p>Price: {itineraries.price}</p>
                 <p>Duration: {itineraries.duration}</p>
             </div>

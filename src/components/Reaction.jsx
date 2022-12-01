@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import reactionActions from '../redux/actions/reactionActions'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 
 
 export default function Reaction(props) {
@@ -14,6 +14,7 @@ export default function Reaction(props) {
 
     useEffect(() => {
         reactions()
+        // eslint-disable-next-line 
     }, [reload])
 
     async function reactions() {
@@ -23,13 +24,9 @@ export default function Reaction(props) {
 
     async function press(e) {
         let name
-        let icon
-        let iconBack
-        reaction.data.map(react => {
+        reaction.data.forEach(react => {
             if (react.name === e.target.name) {
                 name = react.name
-                icon = react.icon
-                iconBack = react.iconBack
             }
         })
 
@@ -39,14 +36,14 @@ export default function Reaction(props) {
             name,
         }
         try {
-            let res = await dispatch(updateReaction(datos))
-            console.log(res)
+            await dispatch(updateReaction(datos))
             setReload(!reload)
         }
         catch (error) {
             console.log(error)
         }
     }
+
     return (
         <>
             {
