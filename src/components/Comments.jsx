@@ -11,7 +11,7 @@ export default function Comments(props) {
 
     let { eventId, type } = props
     const dispatch = useDispatch()
-    const { token, id } = useSelector(state => state.user)
+    const { token, id ,logged} = useSelector(state => state.user)
     const [reload, setReload] = useState(true)
     const [comments, setComments] = useState('')
     const { getComments, createComment, deleteComment, updateComment } = commentActions
@@ -178,9 +178,11 @@ export default function Comments(props) {
 
     return (
         <>
+            {logged &&
             <div>
                 <img src="../img/add-c.png" alt="" width='80px' onClick={sendComment} />
             </div>
+            }
             {comments.success &&
                 comments.response.map(comment => {
                     return (

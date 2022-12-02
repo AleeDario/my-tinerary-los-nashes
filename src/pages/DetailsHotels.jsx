@@ -46,9 +46,6 @@ export default function DetailsHotels() {
                             <h1>{detailCards.name}</h1>
                             <p>{detailCards.capacity}</p>
                         </div>
-                        <button className="bg-palette2 w-40 flex justify-center p-1 p-x-3">
-                            <p>Comments</p>
-                        </button>
                         {events.length !== 0 && (
                             <div className='flex justify-center gap-2 w-100'>
                                 <button onClick={mostrarEvento1} className="botonEvent bg-palette2 w-40 flex justify-center p-1 p-x-3">
