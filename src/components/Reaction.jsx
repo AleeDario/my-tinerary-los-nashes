@@ -61,12 +61,17 @@ export default function Reaction(props) {
                                 res ? (
                                     <div className='elDiv'>
                                         {react.userId.length > 0 && (
-                                        <div>{react.userId.map(user => {
-                                            return (<div className='flex'>
-                                                <img className='img-fluid imgLike' src={user.photo} alt="" />
-                                                <p>{user.name} {user.lastName}</p>
-                                            </div>)
-                                        })}</div>
+                                            <div>
+                                                {react.userId.map((user, index) => {
+                                                    index <= 2 &&(
+                                                            <>
+                                                            <div className='flex'>
+                                                                <img className='img-fluid imgLike' src={user.photo} alt="" />
+                                                                <p>{user.name} {user.lastName}</p>
+                                                            </div>
+
+                                                        </>)
+                                                })}<p>...</p></div>
                                         )}
                                         <img onClick={press} width='30px' name={react.name} src={react.icon} alt="icon" />
                                         <p>{reaction.lengthOfReactions[react.name]}</p>
@@ -82,7 +87,7 @@ export default function Reaction(props) {
                                                     </div>)
                                                 })}</div>
                                             )}
-                                        
+
                                         <img onClick={press} width='30px' name={react.name} src={react.iconBack} alt="icoBack" />
                                         <p>{reaction.lengthOfReactions[react.name]}</p>
                                     </div>

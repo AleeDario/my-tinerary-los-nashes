@@ -6,7 +6,6 @@ const createReaction = createAsyncThunk("createReaction", async (datos) => {
     let headers = { headers: { 'Authorization': `Bearer ${datos.token}` } }
     try {
         const res = await axios.post(`${apiUrl}/api/reactions`, datos.reaction, headers)
-        console.log(res)
         return res.data
     } catch (error) {
         return {
@@ -65,7 +64,6 @@ const deleteReaction = createAsyncThunk("deleteReaction", async ({ id, token }) 
     let headers = { headers: { 'Authorization': `Bearer ${token}` } }
     try {
         const res = await axios.put(`${apiUrl}/api/reactions/${id}`, null, headers)
-        console.log(res.data)
         return res.data
     } catch (error) {
         return {
