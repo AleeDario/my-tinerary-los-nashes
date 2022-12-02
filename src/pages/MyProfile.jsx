@@ -235,7 +235,7 @@ export default function MyProfile() {
                      {<div className='flex cardFormPerfil2'>
                         <img width='350px' className="img-fluid" src={user.photo} alt="drawing" />
                         <div>
-                           <BotonMas fx={updatePhoto} />
+                           <BotonMas w='40px' fx={updatePhoto} />
                         </div>
                      </div>}
                      <div className='flex column gap-1 justify-center align-center container-fluid'>
@@ -243,19 +243,19 @@ export default function MyProfile() {
                            <div className='flex column gap-1'>
                               <div className='flex gap-1 align-center'>
                                  <h2 className='textPerfil'>Name: {user.name}</h2>
-                                 <BotonMas fx={updateName} />
+                                 <BotonMas w='40px' fx={updateName} />
                               </div>
                               <div className='flex gap-1'>
                                  <h2 className='textPerfil'>Last Name: {user.lastName}</h2>
-                                 <BotonMas fx={updateLastName} />
+                                 <BotonMas w='40px' fx={updateLastName} />
                               </div>
                               <div className='flex gap-1'>
                                  <h2 className='textPerfil textEmail'>Email: {user.email}</h2>
-                                 <BotonMas fx={updateEmail} />
+                                 <BotonMas w='40px' fx={updateEmail} />
                               </div>
                               <div className='flex gap-1'>
                                  <h2 className='textPerfil'>Age: {user.age}</h2>
-                                 <BotonMas fx={updateAge} />
+                                 <BotonMas w='40px' fx={updateAge} />
                               </div>
                            </div>
                            {<div className='flex justify-around buttonsPerfil'>
@@ -271,7 +271,6 @@ export default function MyProfile() {
             <div className='flex justify-center wrap gap-2'>
                {mostrarEventoUno && myReactions.length > 0 ? (
                   myReactions.map((reaction, index) => {
-                     console.log(reaction)
                      let classReaction
                      if (reaction.name === reaction.name) {
                         classReaction = `cardPerfil ${reaction.name}`

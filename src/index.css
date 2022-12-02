@@ -65,8 +65,21 @@ body {
     justify-content: start;
 }
 
+.justify-c-end {
+    justify-content: flex-end;
+}
+
+.fondo{
+    display: flex;
+  justify-content: flex-end;
+
+  height: 100px;
+  gap: 3px;
+
+}
+
 .align-end {
-    align-items: end;
+    align-items: flex-end
 }
 
 .justify-end {
@@ -207,7 +220,7 @@ body {
 
 .cardPerfil {
     background-color: white;
-    border-radius: 0 2em 0 2em ;
+    border-radius: 0 2em 0 2em;
     box-shadow: 0 0 0.5rem 0.1rem rgba(0, 0, 0, 0.1);
     padding: 1rem;
     min-width: 250px;
@@ -2054,11 +2067,27 @@ button:active {
 
 .elDiv:hover>div {
     position: absolute;
-    top: -80px;
+    top: -100px;
+    min-height: 70px;
     display: inline-block;
     background: rgba(255, 255, 255, 0.448);
     color: rgb(0, 0, 0);
     padding: 6px;
+
+}
+
+.elDiv:hover > div::-webkit-scrollbar {
+
+    background-color: rgb(255, 255, 255);
+    width: 7px;
+    height: 20px;
+
+}
+
+.elDiv:hover > div::-webkit-scrollbar-thumb {
+
+    background-color: rgb(38, 57, 77);
+    border-radius: 20px;
 
 }
 
@@ -2067,7 +2096,7 @@ button:active {
     height: 20px;
 }
 
-.iconReaction:hover{
+.iconReaction:hover {
     transform: scale(1.2);
     transition: all .3s;
 }
@@ -2077,23 +2106,61 @@ button:active {
     object-fit: cover;
     height: 150px;
     border-radius: 0.5em;
-    box-shadow: rgba(0, 0, 0,.7) .2em .2em;
+    box-shadow: rgba(0, 0, 0, .7) .2em .2em;
 }
 
 .love {
-    box-shadow: 0px 2px 23px 2px rgba(255,0,0,0.7);
+    box-shadow: 0px 2px 23px 2px rgba(255, 0, 0, 0.7);
 }
 
 .surprise {
-    box-shadow: 0px 2px 23px 2px rgba(255,228,0,0.84);
+    box-shadow: 0px 2px 23px 2px rgba(255, 228, 0, 0.84);
 }
 
 .like {
-    box-shadow: 0px 2px 23px 2px rgba(0,165,245,0.84);
+    box-shadow: 0px 2px 23px 2px rgba(0, 165, 245, 0.84);
 }
 
 .not-like {
-    box-shadow: 0px 2px 23px 2px rgba(247,15,239,0.84);
+    box-shadow: 0px 2px 23px 2px rgba(247, 15, 239, 0.84);
+}
+
+.caja-comentarios {
+    max-height: 500px;
+    display: flex;
+    flex-direction: column;
+    padding: 3em;
+    align-items: center;
+    border-radius: .5em;
+    overflow-y: scroll;
+    background-color: rgba(255, 255, 255, .5)
+}
+
+.caja-comentarios::-webkit-scrollbar {
+
+    background-color: rgb(255, 255, 255);
+    width: 7px;
+    height: 20px;
+
+}
+
+
+.caja-comentarios::-webkit-scrollbar-thumb {
+
+    background-color: rgb(38, 57, 77);
+    border-radius: 20px;
+
+}
+
+.box-comments {
+    color: white;
+    background-color: rgb(38, 57, 77);
+    border-radius: .5em;
+    align-items: center
+}
+
+.text-comment{
+    word-break: break-all;
 }
 
 /* MEDIA QUERIES */
@@ -2116,8 +2183,12 @@ button:active {
     }
 
     .cont-event {
-        margin-top: 0;
         font-size: .7em;
+    }
+    
+    .conjunto{
+        flex-direction: column;
+        gap: 3em
     }
 
     .contenedorGral {

@@ -12,7 +12,7 @@ export default function Navbar() {
     let [mostrarOcultar, setMostrarOcultar] = useState(false)
     let [mostrarOcultar2, setMostrarOcultar2] = useState(false)
     const dispatch = useDispatch()
-    const { online, role, photo, name, token } = useSelector(state => state.user)
+    const { logged, role, photo, name, token } = useSelector(state => state.user)
     const { logout } = userActions
 
     let mostrarBoton = () => {
@@ -66,7 +66,7 @@ export default function Navbar() {
                     )}
                 </div>
                 <div>
-                    {online ? (
+                    {logged ? (
                         <div className='flex column justify-center align-center gap-0-5'>
                             <img src={photo} width='50' alt="userLoged" onClick={mostrarBoton2} />
                             <h5 className='text-white'>{name}</h5>
@@ -78,13 +78,13 @@ export default function Navbar() {
                     }
                     {mostrarOcultar2 && (
                         <div>
-                            {!online && (
+                            {!logged && (
                                 <>
                                     <CallToAction rute='/signin' classN='btn3' text='SIGN IN' />
                                     <CallToAction rute='/signup' classN='btn3' text='SIGN UP' />
                                 </>
                             )}
-                            {online && (
+                            {logged && (
                                 <CallToAction rute='/myprofile' classN='btn3' text='MY PROFILE' />
                             )}
                             {role === 'admin' && (
@@ -100,7 +100,7 @@ export default function Navbar() {
                                     <CallToAction rute='/myshows' classN='btn3' text='MY SHOWS' />
                                 </>
                             )}
-                            {online && (
+                            {logged && (
                                 <CallToAction fx={singOut} classN='btn3' text='LOG OUT' />
                             )}
                         </div>
